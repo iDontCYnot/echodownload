@@ -29,4 +29,4 @@ chrome.webRequest.onCompleted.addListener(function(info) {
   	  });  
   }
 },
-{ urls: ['http://prod.lcs.uwa.edu.au/ecp/api/*'] });
+{ urls: ["http://*/ecp/api/*", "http://*/ecp/client/api/*"] });
