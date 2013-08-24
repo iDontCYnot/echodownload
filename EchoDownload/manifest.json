@@ -15,11 +15,11 @@
   "content_scripts": [
     {
       "matches": ["http://*/ecp/html/*", "http://*/ess/html/*"],
-      "js": ["contentEchoCenter.js","jquery-2.0.3.min.js"],
+      "js": ["contentEchoCenter.js"],
       "all_frames": true
     }
   ],
   "background": {
-      "scripts": ["backgroundEchoCenter.js", "jquery-2.0.3.min.js"]
+      "scripts": ["backgroundEchoCenter.js"]
     }
 }
