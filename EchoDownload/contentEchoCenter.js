@@ -5,17 +5,18 @@ chrome.extension.onMessage.addListener( processMessage );
 * A method used to process a message sent from the background task
 */
 function processMessage(request, sender, sendResponse) {
-  //console.log("Message Recieved: ");
-  //console.log(request);
+  console.log("Message Recieved: ");
+  console.log(request);
   if (request.uuid){
-	  //console.log("Recieved: " + request.uuid);
+	  console.log("Recieved: " + request.uuid);
+	  
 	  //grab the right click text element
 	  //if element is empty downloads are disabled - otherwise we can drop out
 	  var rightClickTextElement = document.getElementsByClassName("right-click-text");
 	  rightClickTextElement = rightClickTextElement.item(0);
 	  
 	  if(rightClickTextElement){
-		  //console.log("rightClickTextEl exists");
+		  console.log("rightClickTextEl exists");
 		  //set right click text
 		  rightClickTextElement.innerHTML = "";
 	  }
@@ -27,13 +28,14 @@ function processMessage(request, sender, sendResponse) {
 	  //check that nothing went wrong
 	  if(lectureMeta){
 		  //generate links
+		  console.log("getting url");
 		  var presentation = getURL();
 		  if(!presentation) return; //break if something not right
 		  presentation += request.uuid;
-		  //console.log(presentation);
+		  console.log(presentation);
 		  var fname = getName();
 		  if(!fname) return; //break if something went wrong
-		  //console.log(fname);
+		  console.log(fname);
 		  var afile = presentation + "/audio.mp3";
 		  var vfile = presentation + "/audio-vga.m4v";
 		  
@@ -47,7 +49,7 @@ function processMessage(request, sender, sendResponse) {
 		  //tell background that its been done
 		  sendResponse("the deed is done");	  
 	  } else {
-		  //console.log("lectureMeta IS_NULL");
+		  console.log("lectureMeta IS_NULL");
 	  }
 	}
 }

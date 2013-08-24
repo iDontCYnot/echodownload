@@ -4,7 +4,8 @@
   "minimum_chrome_version": "20",
   "manifest_version": 2,
   "description": "Download all Echo360 lecture recordings",
-  "permissions": ["webRequest", "http://*/ecp/api/*", "http://*/ecp/client/api/*"],
+  "permissions": ["webRequest", "http://*/ecp/api/*", "http://*/ess/client/api/*"],
+  "web_accessible_resources": ["jquery-2.0.3.min.js"],
   "icons": {
     "16" : "/icons/icon16.png",
     "32" : "/icons/icon32.png",
@@ -14,11 +15,11 @@
   "content_scripts": [
     {
       "matches": ["http://*/ecp/html/*", "http://*/ess/html/*"],
-      "js": ["contentEchoCenter.js"],
+      "js": ["contentEchoCenter.js","jquery-2.0.3.min.js"],
       "all_frames": true
     }
   ],
   "background": {
-      "scripts": ["backgroundEchoCenter.js"]
+      "scripts": ["backgroundEchoCenter.js", "jquery-2.0.3.min.js"]
     }
 }
