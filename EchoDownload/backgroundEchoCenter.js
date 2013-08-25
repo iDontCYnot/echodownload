@@ -5,7 +5,8 @@ chrome.webRequest.onCompleted.addListener(function(info) {
   if(info.url.toString().search('loadDetailsSuccess') > -1){
 	  //extract the uuid from the request url
   	  console.log("RequestDidComplete");
-	  var urlString = info.url.toString();
+	  var urlString = info.url.toString().split('?')[0];
+	  if(!urlString) return;
 
 	  //find range of uuid
 	  var leadingString = "/presentations/";
@@ -24,7 +25,7 @@ chrome.webRequest.onCompleted.addListener(function(info) {
 	  console.log(uuid);
 	  console.log(info.tabId);
 	  //inform the content script and send uuid
-  	  chrome.tabs.sendMessage(info.tabId, {uuid: uuid}, function(message){
+  	  chrome.tabs.sendMessage(info.tabId, {uuid: uuid, url: urlString}, function(message){
 		 console.log(message);
   	  });  
   }

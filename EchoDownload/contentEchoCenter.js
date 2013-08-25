@@ -6,9 +6,25 @@ chrome.extension.onMessage.addListener( processMessage );
 */
 function processMessage(request, sender, sendResponse) {
   console.log("Message Recieved: ");
-  console.log(request);
+
   if (request.uuid){
-	  console.log("Recieved: " + request.uuid);
+	  console.log("Recieved: " + request);
+      //get json data for lecture
+	  xmlhttp=new XMLHttpRequest();
+	  xmlhttp.open("GET", request.url,false);
+	  xmlhttp.send();
+	  //parse response
+	  var jsondata = JSON.parse(xmlhttp.responseText);
+	  var title = jsondata.presentation.title;
+	  var uuid  = jsondata.presentation.uuid;
+	  var date  = jsondata.presentation.startTime;
+	  //extract date, time
+	  date = new Date( date.match(/\d{4}-\d{2}-\d{2}/) );
+	  if(!date) return;
+	  console.log(request.url);
+	  console.log(title);
+	  console.log(uuid);
+	  console.log(date);
 	  
 	  //grab the right click text element
 	  //if element is empty downloads are disabled - otherwise we can drop out
@@ -21,7 +37,7 @@ function processMessage(request, sender, sendResponse) {
 		  rightClickTextElement.innerHTML = "";
 	  }
 	  
-	  //grab meta data for download links
+	  //grab meta data container to place download links
 	  var lectureMeta = document.getElementsByClassName("info-meta");
 	  lectureMeta = lectureMeta.item(lectureMeta.length - 1);
 	  
@@ -29,11 +45,14 @@ function processMessage(request, sender, sendResponse) {
 	  if(lectureMeta){
 		  //generate links
 		  console.log("getting url");
-		  var presentation = getURL();
+		  var host = request.url.split(/(ess|ecp)/)[0];
+		  if(!host) return;
+		  console.log(host);
+		  var presentation = getURL( date, host );
 		  if(!presentation) return; //break if something not right
 		  presentation += request.uuid;
 		  console.log(presentation);
-		  var fname = getName();
+		  var fname = getName( date, title );
 		  if(!fname) return; //break if something went wrong
 		  console.log(fname);
 		  var afile = presentation + "/audio.mp3";
@@ -60,7 +79,8 @@ function processMessage(request, sender, sendResponse) {
 */
 Date.prototype.getWeek = function() {
   var onejan = new Date(this.getFullYear(),0,1);
-  return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
+  //  604800000 means 1000(s) * 60(m) * 60(h) * 24(d) * 7(w)
+  return Math.ceil((this - onejan) / 604800000);
 }
 
 /**
@@ -110,72 +130,29 @@ Date.prototype.getShortMonth = function() {
 /**
 * Uses the recording title in order to name the download file
 */
-function getName(){
-	//grab date for file name
-	var dateMeta = document.getElementsByClassName("info-meta");
-	dateMeta = dateMeta.item(0);
-	if(!dateMeta) return; //break out
-	dateMeta = dateMeta.lastChild.innerHTML;
-	if(!dateMeta) return; //break out
-	var date = new Date(dateMeta);
-	
-	//grab page title to extract unit name
-	var course = document.getElementsByClassName('course-info');
-	course = course.item(0);
-	if(!course) return; //break out
-	course = course.innerHTML;
-	var startCourse = course.lastIndexOf("[");
-	var endCourse = course.lastIndexOf("]");
-	if(startCourse < 0 || endCourse < 0) return; //break out
-	startCourse ++;
-	course = course.substring(startCourse, endCourse);
-	
+function getName( dateTime, title ){
+	var date = new Date( dateTime );
 	//return course and recording date
-	return course + " - " + date.getShortMonth() + " " + date.getDate()
-}
-
-/**
-* Uses the date of capture to generate the date path in the url
-*/
-function URLending( date ){
-  var head = "http://prod.lcs.uwa.edu.au:8080/echocontent/";
-  //parse year
-  var y = date.getFullYear().toString().substring(2,4);
-  //parse week
-  var w = date.getWeek().toString();
-  if(w.length < 2){
-    w = "0"+w;
-  }
-  //parse day
-  var d = date.getDay();
-  if(d == 0){
-    d = 7;
-  }
-  return head + y + w + "/" + d + "/";
+	return title + " - " + date.getShortMonth() + " " + date.getDate()
 }
 
 /**
 * Uses the week title to form a valid download url using the date.
 */
-function getURL(){
-	//grab date of recording
-	var dateMeta = document.getElementsByClassName("info-meta");
-	dateMeta = dateMeta.item(0);
-	if(!dateMeta) return; //break out
-	dateMeta = dateMeta.lastChild.innerHTML;
-	if(!dateMeta) return; //break out
-	
-	//grab year of recording
-	var year = document.getElementsByClassName('course-info');
-	year = year.item(0);
-	if(!year) return; //break out
-	year = year.innerHTML;
-	var endDate = year.indexOf(" [");
-	if(endDate < 0) return; //break out
-	year = year.substring(0,endDate);
-	year = year.substring(year.length-5, year.length);
-	
-	//create date using these values - use to generate url
-	var date = new Date(dateMeta + year);
-	return URLending(date);
+function getURL( dateTime, host ){
+	var date = new Date( dateTime );//dateMeta + year);
+	var head = host + "echocontent/";
+    //parse year
+	var y = date.getFullYear().toString().substring(2,4);
+	//parse week
+	var w = date.getWeek().toString();
+	if(w.length < 2){
+	  w = "0"+w;
+	}
+	//parse day
+	var d = date.getDay();
+	if(d == 0){
+	  d = 7;
+    }
+	return head + y + w + "/" + d + "/";
 }
