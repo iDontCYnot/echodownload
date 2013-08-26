@@ -5,10 +5,10 @@ chrome.extension.onMessage.addListener( processMessage );
 * A method used to process a message sent from the background task
 */
 function processMessage(request, sender, sendResponse) {
-  console.log("Message Recieved: ");
+  //console.log("Message Recieved: ");
 
   if (request.uuid){
-	  console.log("Recieved: " + request);
+	  //console.log("Recieved: " + request);
       //get json data for lecture
 	  xmlhttp=new XMLHttpRequest();
 	  xmlhttp.open("GET", request.url,false);
@@ -21,10 +21,10 @@ function processMessage(request, sender, sendResponse) {
 	  //extract date, time
 	  date = new Date( date.match(/\d{4}-\d{2}-\d{2}/) );
 	  if(!date) return;
-	  console.log(request.url);
-	  console.log(title);
-	  console.log(uuid);
-	  console.log(date);
+	  //console.log(request.url);
+	  //console.log(title);
+	  //console.log(uuid);
+	  //console.log(date);
 	  
 	  //grab the right click text element
 	  //if element is empty downloads are disabled - otherwise we can drop out
@@ -32,7 +32,7 @@ function processMessage(request, sender, sendResponse) {
 	  rightClickTextElement = rightClickTextElement.item(0);
 	  
 	  if(rightClickTextElement){
-		  console.log("rightClickTextEl exists");
+		  //console.log("rightClickTextEl exists");
 		  //set right click text
 		  rightClickTextElement.innerHTML = "";
 	  }
@@ -44,17 +44,17 @@ function processMessage(request, sender, sendResponse) {
 	  //check that nothing went wrong
 	  if(lectureMeta){
 		  //generate links
-		  console.log("getting url");
+		  //console.log("getting url");
 		  var host = request.url.split(/(ess|ecp)/)[0];
 		  if(!host) return;
-		  console.log(host);
+		  //console.log(host);
 		  var presentation = getURL( date, host );
 		  if(!presentation) return; //break if something not right
 		  presentation += request.uuid;
-		  console.log(presentation);
+		  //console.log(presentation);
 		  var fname = getName( date, title );
 		  if(!fname) return; //break if something went wrong
-		  console.log(fname);
+		  //console.log(fname);
 		  var afile = presentation + "/audio.mp3";
 		  var vfile = presentation + "/audio-vga.m4v";
 		  
@@ -68,7 +68,7 @@ function processMessage(request, sender, sendResponse) {
 		  //tell background that its been done
 		  sendResponse("the deed is done");	  
 	  } else {
-		  console.log("lectureMeta IS_NULL");
+		  //console.log("lectureMeta IS_NULL");
 	  }
 	}
 }
@@ -79,8 +79,14 @@ function processMessage(request, sender, sendResponse) {
 */
 Date.prototype.getWeek = function() {
   var onejan = new Date(this.getFullYear(),0,1);
+  var oneday = 86400000
+
+  var end = new Date(this.getTime() + oneday);
+
   //  604800000 means 1000(s) * 60(m) * 60(h) * 24(d) * 7(w)
-  return Math.ceil((this - onejan) / 604800000);
+  //console.log("Weeks: " + ((end - onejan) / 604800000));
+  //console.log("Weeks: " + Math.ceil((end - onejan) / 604800000));
+  return Math.ceil((end - onejan) / 604800000);
 }
 
 /**
