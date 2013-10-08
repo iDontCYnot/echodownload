@@ -1,6 +1,6 @@
 {
   "name": "EchoDownload",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "minimum_chrome_version": "20",
   "manifest_version": 2,
   "description": "Download all Echo360 recordings",
