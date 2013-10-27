@@ -19,7 +19,9 @@ function processMessage(request, sender, sendResponse) {
 	  var uuid  = jsondata.presentation.uuid;
 	  var date  = jsondata.presentation.startTime;
 	  //extract date, time
+	  console.log("Date before change " + date);
 	  date = new Date( date.match(/\d{4}-\d{2}-\d{2}/) );
+	  console.log("Date after change " + date);
 	  if(!date) return;
 	  //console.log(request.url);
 	  //console.log(title);
@@ -78,15 +80,28 @@ function processMessage(request, sender, sendResponse) {
 * source: http://javascript.about.com/library/blweekyear.htm
 */
 Date.prototype.getWeek = function() {
-  var onejan = new Date(this.getFullYear(),0,1);
   var oneday = 86400000
-
-  var end = new Date(this.getTime() + oneday);
-
+  //round one jan to be nearest sunday, this is week one
+  var eps = new Date(this.getFullYear()+1,0,1);
+  var end = this.getTime() + oneday;
+  do {
+  	  //go to past year
+  	  eps = new Date(eps.getFullYear()-1,0,1);
+	  var s;
+	  //find closest sunday
+	  if(eps.getDay() < 3)
+	    s = 0;
+	  else 
+	  	s = 7;
+	  //calculate to closest sunday
+	  eps = new Date(eps.getTime() + oneday*(s-eps.getDay()));
+  } while(eps > end) //continue until eps comes before end
   //  604800000 means 1000(s) * 60(m) * 60(h) * 24(d) * 7(w)
-  //console.log("Weeks: " + ((end - onejan) / 604800000));
-  //console.log("Weeks: " + Math.ceil((end - onejan) / 604800000));
-  return Math.ceil((end - onejan) / 604800000);
+  var week = Math.ceil((end - eps) / 604800000);
+  //if goes into next year - fix
+  if(week > 52)
+  	week - (Math.round(week / 52) * 52)
+  return week;
 }
 
 /**
@@ -146,7 +161,9 @@ function getName( dateTime, title ){
 * Uses the week title to form a valid download url using the date.
 */
 function getURL( dateTime, host ){
+	console.log("Creating url with " + dateTime);
 	var date = new Date( dateTime );//dateMeta + year);
+	console.log("Generated date object " + date);
 	var head = host + "echocontent/";
     //parse year
 	var y = date.getFullYear().toString().substring(2,4);
