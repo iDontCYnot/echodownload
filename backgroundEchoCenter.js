@@ -13,7 +13,7 @@ chrome.webRequest.onCompleted.addListener(function(info) {
 	  var trailingString = "/details.json";
 	  var uuidRangeStart = urlString.search(leadingString) + leadingString.length;
 	  var uuidRangeEnd = urlString.search(trailingString);
-	  
+
 	  //sanity checks
 	  if(uuidRangeStart < 0 || uuidRangeEnd < 0 || uuidRangeEnd <= uuidRangeStart){
 		  //malformed url terminate here
@@ -22,7 +22,6 @@ chrome.webRequest.onCompleted.addListener(function(info) {
 	  
 	  //clip uuid from url string
 	  var uuid = urlString.substring(uuidRangeStart, uuidRangeEnd);
-	  //console.log(uuid);
 	  //console.log(info.tabId);
 	  //inform the content script and send uuid
   	  chrome.tabs.sendMessage(info.tabId, {uuid: uuid, url: urlString}, function(message){
