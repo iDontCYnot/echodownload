@@ -7,6 +7,7 @@ chrome.extension.onMessage.addListener( processMessage );
 function processMessage(request, sender, sendResponse) {
 	// get json data for lecture
   	xmlhttp=new XMLHttpRequest();
+  	console.log(request.url);
 	xmlhttp.open("GET", request.url,false);
 	xmlhttp.send();
 	var data = JSON.parse(xmlhttp.responseText);
@@ -15,7 +16,7 @@ function processMessage(request, sender, sendResponse) {
 	var uuid  = data.presentation.uuid;
 	var date  = data.presentation.startTime;
 	// remove timezone from timestamp
-	var tz_regex = /[+-]\d{2}:\d{2}/i
+	var tz_regex = /([+-]\d{2}:\d{2}|Z)/i
 	var tstamp = moment(date.replace(tz_regex, ''));
 	if(!tstamp.isValid()) return;
 	// grab the right click text element
