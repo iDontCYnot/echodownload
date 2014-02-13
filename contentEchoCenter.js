@@ -7,18 +7,26 @@ chrome.extension.onMessage.addListener( processMessage );
 function processMessage(request, sender, sendResponse) {
 	// get json data for lecture
   	xmlhttp=new XMLHttpRequest();
-  	console.log(request.url);
-	xmlhttp.open("GET", request.url,false);
+	xmlhttp.open("GET", request.url, false);
 	xmlhttp.send();
 	var data = JSON.parse(xmlhttp.responseText);
 	// parse response
 	var title = data.presentation.title;
 	var uuid  = data.presentation.uuid;
 	var date  = data.presentation.startTime;
+	// TODO Get [vod|pod]cast link
+	var vidLink = data.presentation.vodcast !== 'undefined';
+	var audLink = data.presentation.podcast !== 'undefined';
+	console.log(vidLink ? "Video Exists" : "No Video");
+	console.log(audLink ? "Audio Exists" : "No Audio");
+	// Check casts exist
+	if(!vidLink && !audLink){
+		return;
+	}
 	// remove timezone from timestamp
-	var tz_regex = /([+-]\d{2}:\d{2}|Z)/i
-	var tstamp = moment(date.replace(tz_regex, ''));
-	if(!tstamp.isValid()) return;
+	var tstamp = moment(date.replace( /([+-]\d{2}:\d{2}|Z)/i, ''));
+	if(!tstamp.isValid()) 
+		return;
 	// grab the right click text element
 	// if element is empty downloads are disabled - otherwise we can drop out
 	var rightClickTextElement = $(".right-click-text").first();
@@ -28,24 +36,37 @@ function processMessage(request, sender, sendResponse) {
 	// grab meta data container to place download links
 	var lectureMeta = $(".info-meta").last();	  
 	// check that nothing went wrong
-	if(lectureMeta == null) return;
+	if(lectureMeta == null) 
+		return;
 	// get host URL
 	var host = request.url.split( /(ess|ecp)/ )[0];
-	if(host == null) return;
+	if(host == null) 
+		return;
 	// Media URL beginning
 	var presentation = host + tstamp.format("[echocontent/]YYWW[/]E[/]") + uuid;
-	if(!presentation) return;
 	// filename
 	var fname = title + tstamp.format(" [-] MMM Do");
-	if(!fname) return; //break if something went wrong
 	// make URL to file
 	var afile = presentation + "/audio.mp3";
 	console.log(afile);
-	var vfile = presentation + "/audio-vga.m4v";	  
+	var vfile = presentation + "/audio-vga.m4v";
+	console.log(vfile);	  
 	// generate DOM data
 	var heading = "<div class=\"info-key\">Downloads</div>";
 	var aelement = "<div class=\"info-value\"><a href=" + afile + " download=\"" + fname + ".mp3\" title=\"Listen to MP3 Audio File\">Audio File</a></div>";
 	var velement = "<div class=\"info-value\"><a href=" + vfile + " download=\"" + fname + ".m4v\" title=\"Watch M4V Video or Screen File\">Video File</a></div>";
+	var links;
+	// Both links
+	if(vidLink && audLink){
+		links = aelement + "<br>" + velement;
+	} else if (vidLink){
+		// Video link only
+		links = velement;
+	} else if (audLink){
+		// Audio link only
+		links = aelement;
+	}
 	// add DOM elements to page
-	lectureMeta.html(heading + aelement + "<br>" + velement);	
+	lectureMeta.html(heading + links);	
+	sendResponse();
 }
