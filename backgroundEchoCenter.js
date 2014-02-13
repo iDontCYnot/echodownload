@@ -5,7 +5,6 @@ chrome.webRequest.onCompleted.addListener(function(info) {
 		//extract the uuid from the request url
 		var urlString = info.url.toString().match( /.+details.json/i )[0];
 		// TODO first match
-		console.log(urlString);
 		if(urlString == null) return;
 		//inform the content script and send url
 	  	chrome.tabs.sendMessage(info.tabId, {url: urlString}, function(){

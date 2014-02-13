@@ -17,8 +17,6 @@ function processMessage(request, sender, sendResponse) {
 	// TODO Get [vod|pod]cast link
 	var vidLink = data.presentation.vodcast !== 'undefined';
 	var audLink = data.presentation.podcast !== 'undefined';
-	console.log(vidLink ? "Video Exists" : "No Video");
-	console.log(audLink ? "Audio Exists" : "No Audio");
 	// Check casts exist
 	if(!vidLink && !audLink){
 		return;
@@ -48,9 +46,11 @@ function processMessage(request, sender, sendResponse) {
 	var fname = title + tstamp.format(" [-] MMM Do");
 	// make URL to file
 	var afile = presentation + "/audio.mp3";
-	console.log(afile);
 	var vfile = presentation + "/audio-vga.m4v";
-	console.log(vfile);	  
+	// Check if valid, never versions use different extension
+	if(!checkValid(vfile)){
+		vfile = vfile.replace("/audio-vga.m4v", "/audio-video.m4v");
+	}
 	// generate DOM data
 	var heading = "<div class=\"info-key\">Downloads</div>";
 	var aelement = "<div class=\"info-value\"><a href=" + afile + " download=\"" + fname + ".mp3\" title=\"Listen to MP3 Audio File\">Audio File</a></div>";
@@ -69,4 +69,23 @@ function processMessage(request, sender, sendResponse) {
 	// add DOM elements to page
 	lectureMeta.html(heading + links);	
 	sendResponse();
+}
+
+/**
+* Checks if a url is valid
+*/ 
+function checkValid(URL){
+	var returnValue;
+	$.ajax({
+        type: 'HEAD',
+        url: URL,
+        async: false,
+        success: function() {
+            returnValue = true;
+        },
+        error: function() {
+            returnValue = false;
+        }            
+    });
+    return returnValue;
 }
