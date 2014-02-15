@@ -49,7 +49,7 @@ function processMessage(request, sender, sendResponse) {
 	var vfile = presentation + "/audio-vga.m4v";
 	// Check if valid, never versions use different extension
 	if(!checkValid(vfile)){
-		vfile = vfile.replace("/audio-vga.m4v", "/audio-video.m4v");
+		vfile = presentation + "/audio-video.m4v";
 	}
 	// generate DOM data
 	var heading = "<div class=\"info-key\">Downloads</div>";
