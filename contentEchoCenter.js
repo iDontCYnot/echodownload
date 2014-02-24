@@ -6,10 +6,19 @@ chrome.extension.onMessage.addListener( processMessage );
 */
 function processMessage(request, sender, sendResponse) {
 	// get json data for lecture
-  	xmlhttp=new XMLHttpRequest();
-	xmlhttp.open("GET", request.url, false);
-	xmlhttp.send();
-	var data = JSON.parse(xmlhttp.responseText);
+	$.ajax({
+        url: request.url,
+        async: false,
+        success: function(data) {
+            processLecture(data, request.url, sendResponse);
+        }            
+    });
+}
+
+/**
+* Process Json data and present links to user
+*/
+function processLecture(data, resource, sendResponse){
 	// parse response
 	var title = data.presentation.title;
 	var uuid  = data.presentation.uuid;
@@ -37,7 +46,7 @@ function processMessage(request, sender, sendResponse) {
 	if(lectureMeta == null) 
 		return;
 	// get host URL
-	var host = request.url.split( /(ess|ecp)/ )[0];
+	var host = resource.split( /(ess|ecp)/ )[0];
 	if(host == null) 
 		return;
 	// Media URL beginning
