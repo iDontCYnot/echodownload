@@ -94,17 +94,17 @@ function processLecture(data, resource, sendResponse){
 * Checks if a url is valid
 */ 
 function checkValid(URL){
-	var returnValue;
+	var isValid;
 	$.ajax({
         type: 'HEAD',
         url: URL,
         async: false,
         success: function() {
-            returnValue = true;
+            isValid = true;
         },
         error: function() {
-            returnValue = false;
+            isValid = false;
         }            
     });
-    return returnValue;
+    return isValid;
 }
