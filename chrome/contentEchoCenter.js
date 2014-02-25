@@ -41,13 +41,6 @@ function processLecture(data, resource, sendResponse){
 	if(!tstamp.isValid()){
 		return;
 	}
-	// grab the right click text element
-	// if element is empty downloads are disabled - otherwise we can drop out
-	var rightClickTextElement = $(".right-click-text").first();
-	// set right click text to null
-	if(rightClickTextElement != null){
-		rightClickTextElement.html(null);
-	}
 	// grab meta data container to place download links
 	var lectureMeta = $(".info-meta").last();	  
 	// check that nothing went wrong
