@@ -47,6 +47,8 @@ function processLecture(data, resource, sendResponse){
 	if(lectureMeta == null){ 
 		return;
 	}
+	// remove old links
+	lectureMeta.empty();
 	// get host URL
 	var host = resource.split( /(ess|ecp)/ )[0];
 	if(host == null){
@@ -64,23 +66,44 @@ function processLecture(data, resource, sendResponse){
 		vfile = presentation + "/audio-video.m4v";
 	}
 	// generate DOM data
-	var heading = "<div class=\"info-key\">Downloads</div>";
-	var aelement = "<div class=\"info-value\"><a href=" + afile + " download=\"" + fname + ".mp3\" title=\"Listen to MP3 Audio File\">Audio File</a></div>";
-	var velement = "<div class=\"info-value\"><a href=" + vfile + " download=\"" + fname + ".m4v\" title=\"Watch M4V Video or Screen File\">Video File</a></div>";
-	var links;
-	// Both links
+	var heading = $("<div class=\"info-key\">Downloads</div>");
+	var aelement = makeLink(afile, fname, false);
+	var velement = makeLink(vfile, fname, true);
+	// append heading
+	lectureMeta.append(heading);
+	// append links
 	if(vidLink && audLink){
-		links = aelement + "<br>" + velement;
+		// Both links
+		lectureMeta.append(aelement)
+		.append($("<br />"))
+		.append(velement);
 	} else if (vidLink){
 		// Video link only
-		links = velement;
+		lectureMeta.append(velement);
 	} else if (audLink){
 		// Audio link only
-		links = aelement;
+		lectureMeta.append(aelement);
 	}
-	// add DOM elements to page
-	lectureMeta.html(heading + links);	
 	sendResponse();
+}
+
+/**
+* Create link element
+*/
+function makeLink(href, fname, isVideo){
+	// element
+	var element = $("<div>");
+	element.addClass("info-value");
+	// anchor
+	var anch = $("<a>");
+	anch.attr('href', href);
+	anch.attr('download', fname + ( isVideo ? ".m4v" : ".mp3" ));
+	anch.attr('title', isVideo ? "Watch M4V Video or Screen File" : "Listen to MP3 Audio File" );
+	anch.text( isVideo ? "Video File" : "Audio File" )
+	// add anchor to element
+	element.append(anch);
+	console.log($("<div>").append(element).html());
+	return element;
 }
 
 /**
