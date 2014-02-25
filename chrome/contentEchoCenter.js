@@ -15,7 +15,7 @@ function processMessage(request, sender, sendResponse) {
         success: function(data) {
         	// Check for latest request before processing
         	if(request_id >= REQ){
-            	processLecture(data, request.url, sendResponse);
+            	processLecture(data.presentation, request.url, sendResponse);
         	}
         }            
     });
@@ -26,12 +26,12 @@ function processMessage(request, sender, sendResponse) {
 */
 function processLecture(data, resource, sendResponse){
 	// parse response
-	var title = data.presentation.title;
-	var uuid  = data.presentation.uuid;
-	var date  = data.presentation.startTime;
+	var title = data.title;
+	var uuid  = data.uuid;
+	var date  = data.startTime;
 	// TODO Get [vod|pod]cast link
-	var vidLink = data.presentation.vodcast !== 'undefined';
-	var audLink = data.presentation.podcast !== 'undefined';
+	var vidLink = data.vodcast !== 'undefined';
+	var audLink = data.podcast !== 'undefined';
 	// Check casts exist
 	if(!vidLink && !audLink){
 		return;
