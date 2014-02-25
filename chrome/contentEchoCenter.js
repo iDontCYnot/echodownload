@@ -1,3 +1,4 @@
+var REQ = 0;
 //recieve a message from the background.JS
 chrome.extension.onMessage.addListener( processMessage );
 
@@ -5,12 +6,17 @@ chrome.extension.onMessage.addListener( processMessage );
 * A method used to process a message sent from the background task
 */
 function processMessage(request, sender, sendResponse) {
+	// Set ID
+	var request_id = ++REQ;
 	// get json data for lecture
 	$.ajax({
         url: request.url,
         async: false,
         success: function(data) {
-            processLecture(data, request.url, sendResponse);
+        	// Check for latest request before processing
+        	if(request_id >= REQ){
+            	processLecture(data, request.url, sendResponse);
+        	}
         }            
     });
 }
@@ -32,23 +38,27 @@ function processLecture(data, resource, sendResponse){
 	}
 	// remove timezone from timestamp
 	var tstamp = moment(date.replace( /([+-]\d{2}:\d{2}|Z)/i, ''));
-	if(!tstamp.isValid()) 
+	if(!tstamp.isValid()){
 		return;
+	}
 	// grab the right click text element
 	// if element is empty downloads are disabled - otherwise we can drop out
 	var rightClickTextElement = $(".right-click-text").first();
 	// set right click text to null
-	if(rightClickTextElement != null)
+	if(rightClickTextElement != null){
 		rightClickTextElement.html(null);
+	}
 	// grab meta data container to place download links
 	var lectureMeta = $(".info-meta").last();	  
 	// check that nothing went wrong
-	if(lectureMeta == null) 
+	if(lectureMeta == null){ 
 		return;
+	}
 	// get host URL
 	var host = resource.split( /(ess|ecp)/ )[0];
-	if(host == null) 
+	if(host == null){
 		return;
+	}
 	// Media URL beginning
 	var presentation = host + tstamp.format("[echocontent/]YYWW[/]E[/]") + uuid;
 	// filename
