@@ -102,7 +102,6 @@ function makeLink(href, fname, isVideo){
 	anch.text( isVideo ? "Video File" : "Audio File" )
 	// add anchor to element
 	element.append(anch);
-	console.log($("<div>").append(element).html());
 	return element;
 }
 
