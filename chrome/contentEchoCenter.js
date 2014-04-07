@@ -30,8 +30,8 @@ function processLecture(data, resource, sendResponse){
 	var uuid  = data.uuid;
 	var date  = data.startTime;
 	// TODO Get [vod|pod]cast link
-	var vidLink = data.vodcast !== 'undefined';
-	var audLink = data.podcast !== 'undefined';
+	var vidLink = data.vodcast !== null;
+	var audLink = data.podcast !== null;
 	// Check casts exist
 	if(!vidLink && !audLink){
 		return;
@@ -50,7 +50,9 @@ function processLecture(data, resource, sendResponse){
 	// remove old links
 	lectureMeta.empty();
 	// get host URL
-	var host = resource.split( /(ess|ecp)/ )[0];
+	console.log(resource);
+	var host = resource.split( /(ess\/|ecp\/)/ )[0];
+	console.log(host);
 	if(host == null){
 		return;
 	}
@@ -65,6 +67,7 @@ function processLecture(data, resource, sendResponse){
 	if(!checkValid(vfile)){
 		vfile = presentation + "/audio-video.m4v";
 	}
+
 	// generate DOM data
 	var heading = $("<div class=\"info-key\">Downloads</div>");
 	var aelement = makeLink(afile, fname, false);
