@@ -38,6 +38,8 @@ function processLecture(data, resource, sendResponse){
 	}
 	// remove timezone from timestamp
 	var tstamp = moment(date.replace( /([+-]\d{2}:\d{2}|Z)/i, ''));
+	console.log(date);
+	console.log(tstamp);
 	if(!tstamp.isValid()){
 		return;
 	}
@@ -49,25 +51,13 @@ function processLecture(data, resource, sendResponse){
 	}
 	// remove old links
 	lectureMeta.empty();
-	// get host URL
-	console.log(resource);
-	var host = resource.split( /(ess\/|ecp\/)/ )[0];
-	console.log(host);
-	if(host == null){
-		return;
-	}
-	// Media URL beginning
-	var presentation = host + tstamp.format("[echocontent/]YYWW[/]E[/]") + uuid;
-	// filename
+	// get directory name
+	var dir = generateDirLink(resource, uuid, tstamp);
+	// set filename
 	var fname = title + tstamp.format(" [-] MMM Do");
-	// make URL to file
-	var afile = presentation + "/audio.mp3";
-	var vfile = presentation + "/audio-vga.m4v";
-	// Check if valid, never versions use different extension
-	if(!checkValid(vfile)){
-		vfile = presentation + "/audio-video.m4v";
-	}
-
+	// make URL to files
+	var afile = makeAudioLink(dir);
+	var vfile = makeVideoLink(dir);
 	// generate DOM data
 	var heading = $("<div class=\"info-key\">Downloads</div>");
 	var aelement = makeLink(afile, fname, false);
@@ -88,6 +78,40 @@ function processLecture(data, resource, sendResponse){
 		lectureMeta.append(aelement);
 	}
 	sendResponse();
+}
+
+/**
+*	generate directory link using host and timestamp / uuid
+*/
+function generateDirLink(resource, uuid, tstamp){
+	// get host URL
+	console.log(resource);
+	var host = resource.split( /(ess\/|ecp\/)/ )[0];
+	console.log(host);
+	if(host == null){
+		return;
+	}
+	// Media URL beginning
+	return host + tstamp.format("[echocontent/]YYWW[/]E[/]") + uuid;
+}
+
+/**
+*	generate direct link to audio file
+*/
+function makeAudioLink(dir){
+	return dir + "/audio.mp3";
+}
+
+/**
+*	generate direct link to video file
+*/
+function makeVideoLink(dir){
+	var file = dir + "/audio-vga.m4v";
+	// Check if valid, never versions use different extension
+	if(!checkValid(file)){
+		file = dir + "/audio-video.m4v";
+	}
+	return file;
 }
 
 /**
