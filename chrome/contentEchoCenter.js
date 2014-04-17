@@ -38,8 +38,6 @@ function processLecture(data, resource, sendResponse){
 	}
 	// remove timezone from timestamp
 	var tstamp = moment(date.replace( /([+-]\d{2}:\d{2}|Z)/i, ''));
-	console.log(date);
-	console.log(tstamp);
 	if(!tstamp.isValid()){
 		return;
 	}
@@ -85,9 +83,7 @@ function processLecture(data, resource, sendResponse){
 */
 function generateDirLink(resource, uuid, tstamp){
 	// get host URL
-	console.log(resource);
 	var host = resource.split( /(ess\/|ecp\/)/ )[0];
-	console.log(host);
 	if(host == null){
 		return;
 	}
