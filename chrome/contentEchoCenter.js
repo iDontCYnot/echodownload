@@ -51,6 +51,9 @@ function processLecture(data, resource, sendResponse){
 	lectureMeta.empty();
 	// get directory name
 	var dir = generateDirLink(resource, uuid, tstamp);
+	if(dir == null){
+		return;
+	}
 	// set filename
 	var fname = title + tstamp.format(" [-] MMM Do");
 	// make URL to files
@@ -85,7 +88,7 @@ function generateDirLink(resource, uuid, tstamp){
 	// get host URL
 	var host = resource.split( /(ess\/|ecp\/)/ )[0];
 	if(host == null){
-		return;
+		return null;
 	}
 	// Media URL beginning
 	return host + tstamp.format("[echocontent/]YYWW[/]E[/]") + uuid;
