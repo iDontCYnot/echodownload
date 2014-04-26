@@ -7,8 +7,9 @@ chrome.webRequest.onCompleted.addListener(function(info) {
 		// TODO first match
 		if(urlString == null) return;
 		//inform the content script and send url
-	  	chrome.tabs.sendMessage(info.tabId, {url: urlString}, function(){
-	  		chrome.pageAction.show(info.tabId);
+	  	chrome.tabs.sendMessage(info.tabId, {url: urlString}, function(success){
+	  		if(success)
+	  			chrome.pageAction.show(info.tabId);
 	  	});  
   }
 },

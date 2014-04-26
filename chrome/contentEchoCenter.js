@@ -75,7 +75,7 @@ function processLecture(data, resource, sendResponse){
 		// Audio link only
 		lectureMeta.append(aelement);
 	}
-	sendResponse();
+	sendResponse(true);
 }
 
 /**
