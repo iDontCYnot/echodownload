@@ -56,7 +56,15 @@ function processLecture(data, resource, sendResponse){
 	var fname = title + tstamp.format(" [-] MMM Do");
 	// make URL to files
 	var afile = makeAudioLink(dir);
+	if(afile == null){
+		error("No audio file found");
+		audLink = false;
+	}
 	var vfile = makeVideoLink(dir);
+	if(vfile == null){
+		error("No video file found");
+		vidLink = false;
+	}
 	// generate DOM data
 	var heading = $("<div class=\"info-key\">Downloads</div>");
 	var aelement = makeLink(afile, fname, false);
@@ -107,19 +115,37 @@ function generateDirLink(resource, uuid, tstamp){
 *	generate direct link to audio file
 */
 function makeAudioLink(dir){
-	return dir + "/audio.mp3";
+	var files = [
+		"/audio.mp3",
+		"/audio_1.aac"
+	];
+	// Check if valid, different versions use different extension
+	for(var i in files){
+		var f = dir + files[i];
+		log("Checking "+ files[i]);
+		if(checkValid(f))
+			return f;
+	}
+	return null;
 }
 
 /**
 *	generate direct link to video file
 */
 function makeVideoLink(dir){
-	var file = dir + "/audio-vga.m4v";
-	// Check if valid, never versions use different extension
-	if(!checkValid(file)){
-		file = dir + "/audio-video.m4v";
+	var files = [
+		"/audio-vga.m4v",
+		"/audio-video.m4v",
+		"/display_1.h264"
+	];
+	// Check if valid, different versions use different extension
+	for(var i in files){
+		var f = dir + files[i];
+		log("Checking "+ files[i]);
+		if(checkValid(f))
+			return f;
 	}
-	return file;
+	return null;
 }
 
 /**
