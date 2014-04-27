@@ -15,7 +15,8 @@ function processMessage(request, sender, sendResponse) {
         success: function(data) {
         	// Check for latest request before processing
         	if(request_id >= REQ){
-            	processLecture(data.presentation, request.url, sendResponse);
+        		// pass request_id just in case
+            	processLecture(data.presentation, request.url, sendResponse, request_id);
         	}
         }            
     });
@@ -24,7 +25,7 @@ function processMessage(request, sender, sendResponse) {
 /**
 * Process Json data and present links to user
 */
-function processLecture(data, resource, sendResponse){
+function processLecture(data, resource, sendResponse, req_id){
 	// parse response
 	var title = data.title;
 	var uuid  = data.uuid;
@@ -76,27 +77,30 @@ function processLecture(data, resource, sendResponse){
 	var heading = $("<div class=\"info-key\">Downloads</div>");
 	var aelement = makeLink(afile, fname, false);
 	var velement = makeLink(vfile, fname, true);
-	// remove old links
-	lectureMeta.empty();
-	// append heading
-	lectureMeta.append(heading);
-	// append links
-	if(vidLink && audLink){
-		// Both links
-		lectureMeta.append(aelement)
-		.append($("<br />"))
-		.append(velement);
-		log("Both links generated and available");
-	} else if (vidLink){
-		// Video link only
-		lectureMeta.append(velement);
-		log("only video link generated and available");
-	} else if (audLink){
-		// Audio link only
-		lectureMeta.append(aelement);
-		log("only audio link generated and available");
+	// Now lets not do anything silly
+	if(request_id >= REQ){
+		// remove old links
+		lectureMeta.empty();
+		// append heading
+		lectureMeta.append(heading);
+		// append links
+		if(vidLink && audLink){
+			// Both links
+			lectureMeta.append(aelement)
+			.append($("<br />"))
+			.append(velement);
+			log("Both links generated and available");
+		} else if (vidLink){
+			// Video link only
+			lectureMeta.append(velement);
+			log("only video link generated and available");
+		} else if (audLink){
+			// Audio link only
+			lectureMeta.append(aelement);
+			log("only audio link generated and available");
+		}
+		sendResponse();	
 	}
-	sendResponse();
 }
 
 /**
