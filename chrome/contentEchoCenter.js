@@ -32,11 +32,6 @@ function processLecture(data, resource, sendResponse){
 	// TODO Get [vod|pod]cast link
 	var vidLink = data.vodcast !== null;
 	var audLink = data.podcast !== null;
-	// Check casts exist
-	if(!vidLink && !audLink){
-		error("No links in data");
-		return;
-	}
 	// remove timezone from timestamp
 	var tstamp = moment(date.replace( /([+-]\d{2}:\d{2}|Z)/i, ''));
 	if(!tstamp.isValid()){
@@ -66,6 +61,11 @@ function processLecture(data, resource, sendResponse){
 	var heading = $("<div class=\"info-key\">Downloads</div>");
 	var aelement = makeLink(afile, fname, false);
 	var velement = makeLink(vfile, fname, true);
+	// Check casts exist
+	if(!vidLink && !audLink){
+		error("No links in data");
+		return;
+	}
 	// remove old links
 	lectureMeta.empty();
 	// append heading
