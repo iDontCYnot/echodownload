@@ -67,15 +67,15 @@ function processLecture(data, resource, sendResponse){
 		vidLink = false;
 	}
 	log(vfile);
-	// generate DOM data
-	var heading = $("<div class=\"info-key\">Downloads</div>");
-	var aelement = makeLink(afile, fname, false);
-	var velement = makeLink(vfile, fname, true);
 	// Check casts exist
 	if(!vidLink && !audLink){
 		error("No links in data");
 		return;
 	}
+	// generate DOM data
+	var heading = $("<div class=\"info-key\">Downloads</div>");
+	var aelement = makeLink(afile, fname, false);
+	var velement = makeLink(vfile, fname, true);
 	// remove old links
 	lectureMeta.empty();
 	// append heading
