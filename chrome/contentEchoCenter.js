@@ -78,7 +78,7 @@ function processLecture(data, resource, sendResponse, req_id){
 	var aelement = makeLink(afile, fname, false);
 	var velement = makeLink(vfile, fname, true);
 	// Now lets not do anything silly
-	if(request_id >= REQ){
+	if(req_id >= REQ){
 		// remove old links
 		lectureMeta.empty();
 		// append heading
