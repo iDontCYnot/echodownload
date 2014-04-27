@@ -1,12 +1,12 @@
 {
   "name": "EchoDownload",
-  "version": "4.1",
+  "version": "4.2",
   "minimum_chrome_version": "20",
   "manifest_version": 2,
   "description": "Download all Echo360 recordings",
   "permissions": [
-      "webRequest", 
-      "*://*/ecp/api/*", 
+      "webRequest",
+      "*://*/ecp/api/*",
       "*://*/ess/client/api/*"
   ],
   "icons": {
@@ -17,9 +17,9 @@
     "256" : "/icons/icon256.png"
   },
   "page_action": {
-    "default_icon": {        
-      "19": "/icons/icon19.png",         
-      "38": "/icons/icon38.png" 
+    "default_icon": {
+      "19": "/icons/icon19.png",
+      "38": "/icons/icon38.png"
     },
     "default_title": "EchoDownload is active",
     "default_popup": "active.html"
