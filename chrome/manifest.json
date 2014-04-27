@@ -27,6 +27,7 @@
     {
       "matches": ["*://*/ecp/html/*", "*://*/ess/html/*"],
       "js": [
+        "logs.js",
         "jquery-1.11.0.js",
         "moment.min.js",
         "contentEchoCenter.js"
