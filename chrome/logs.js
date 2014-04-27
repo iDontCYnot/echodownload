@@ -1,11 +1,11 @@
 DEBUG = true;
 
 function log(message){
-	if(DEGUB)
+	if(DEBUG)
 		console.log(message);
 }
 
 function error(message){
-	if(DEGUB)
+	if(DEBUG)
 		console.error(message);
 }
