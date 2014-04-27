@@ -18,7 +18,7 @@ function processMessage(request, sender, sendResponse) {
         		// pass request_id just in case
             	processLecture(data.presentation, request.url, sendResponse, request_id);
         	}
-        }            
+        }
     });
 }
 
@@ -31,7 +31,7 @@ function processLecture(data, resource, sendResponse, req_id){
 	var uuid  = data.uuid;
 	var date  = data.startTime;
 	var rmedia = data.richMedia;
-	// TODO Get [vod|pod]cast link
+	// hold whether file is present
 	var vidLink = true;
 	var audLink = true;
 	// remove timezone from timestamp
@@ -41,9 +41,8 @@ function processLecture(data, resource, sendResponse, req_id){
 		return;
 	}
 	// grab meta data container to place download links
-	var lectureMeta = $(".info-meta").last();	  
-	// check that nothing went wrong
-	if(lectureMeta == null){ 
+	var lectureMeta = $(".info-meta").last();
+	if(lectureMeta == null){
 		error("Meta element not found");
 		return;
 	}
@@ -99,7 +98,7 @@ function processLecture(data, resource, sendResponse, req_id){
 			lectureMeta.append(aelement);
 			log("only audio link generated and available");
 		}
-		sendResponse();	
+		sendResponse();
 	}
 }
 
@@ -126,7 +125,7 @@ function makeAudioLink(dir, rmedia){
 		dir + "/audio_1.aac",
 		rmedia + "/mediacontent.mp3"
 	];
-	return firstAvailable(files);	
+	return firstAvailableURL(files);
 }
 
 /**
@@ -138,13 +137,13 @@ function makeVideoLink(dir, rmedia){
 		dir + "/audio-video.m4v",
 		rmedia + "/mediacontent.m4v"
 	];
-	return firstAvailable(files);	
+	return firstAvailableURL(files);
 }
 
 /**
 * Checks an ordered list and return the first valid URL
 */
-function firstAvailable(urls){
+function firstAvailableURL(urls){
 	// Check if valid, different versions use different extension
 	for(var i in urls){
 		if(checkValid(urls[i]))
@@ -185,7 +184,7 @@ function findExtension(href){
 
 /**
 * Checks if a url is valid by checking for success when requesting headers
-*/ 
+*/
 function checkValid(URL){
 	var isValid;
 	$.ajax({
@@ -197,7 +196,7 @@ function checkValid(URL){
         },
         error: function() {
             isValid = false;
-        }            
+        }
     });
     return isValid;
 }
