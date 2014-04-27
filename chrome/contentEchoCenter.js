@@ -151,6 +151,8 @@ function makeVideoLink(dir, rmedia){
 * Create link element
 */
 function makeLink(href, fname, isVideo){
+	if(href == null)
+		return null;
 	// element
 	var element = $("<div>");
 	element.addClass("info-value");
