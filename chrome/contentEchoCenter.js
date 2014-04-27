@@ -34,22 +34,26 @@ function processLecture(data, resource, sendResponse){
 	var audLink = data.podcast !== null;
 	// Check casts exist
 	if(!vidLink && !audLink){
+		error("No links in data");
 		return;
 	}
 	// remove timezone from timestamp
 	var tstamp = moment(date.replace( /([+-]\d{2}:\d{2}|Z)/i, ''));
 	if(!tstamp.isValid()){
+		error("Invalid timestamp");
 		return;
 	}
 	// grab meta data container to place download links
 	var lectureMeta = $(".info-meta").last();	  
 	// check that nothing went wrong
 	if(lectureMeta == null){ 
+		error("Meta element not found");
 		return;
 	}
 	// get directory name
 	var dir = generateDirLink(resource, uuid, tstamp);
 	if(dir == null){
+		error("Directory not found");
 		return;
 	}
 	// set filename
