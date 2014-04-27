@@ -56,6 +56,7 @@ function processLecture(data, resource, sendResponse){
 		error("Directory not found");
 		return;
 	}
+	log("Directory: " + dir);
 	// set filename
 	var fname = title + tstamp.format(" [-] MMM Do");
 	// make URL to files
@@ -75,12 +76,15 @@ function processLecture(data, resource, sendResponse){
 		lectureMeta.append(aelement)
 		.append($("<br />"))
 		.append(velement);
+		log("Both links generated and available");
 	} else if (vidLink){
 		// Video link only
 		lectureMeta.append(velement);
+		log("only video link generated and available");
 	} else if (audLink){
 		// Audio link only
 		lectureMeta.append(aelement);
+		log("only audio link generated and available");
 	}
 	sendResponse();
 }
