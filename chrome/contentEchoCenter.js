@@ -126,12 +126,7 @@ function makeAudioLink(dir, rmedia){
 		dir + "/audio_1.aac",
 		rmedia + "/mediacontent.mp3"
 	];
-	// Check if valid, different versions use different extension
-	for(var i in files){
-		if(checkValid(files[i]))
-			return files[i];
-	}
-	return null;
+	return firstAvailable(files);	
 }
 
 /**
@@ -143,10 +138,17 @@ function makeVideoLink(dir, rmedia){
 		dir + "/audio-video.m4v",
 		rmedia + "/mediacontent.m4v"
 	];
+	return firstAvailable(files);	
+}
+
+/**
+* Checks an ordered list and return the first valid URL
+*/
+function firstAvailable(urls){
 	// Check if valid, different versions use different extension
-	for(var i in files){
-		if(checkValid(files[i]))
-			return files[i];
+	for(var i in urls){
+		if(checkValid(urls[i]))
+			return urls[i];
 	}
 	return null;
 }
