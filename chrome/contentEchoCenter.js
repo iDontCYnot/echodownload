@@ -153,18 +153,32 @@ function makeVideoLink(dir, rmedia){
 function makeLink(href, fname, isVideo){
 	if(href == null)
 		return null;
+	// extract extension
+	var extension = findExtension(href);
 	// element
 	var element = $("<div>");
 	element.addClass("info-value");
 	// anchor
 	var anch = $("<a>");
 	anch.attr('href', href);
-	anch.attr('download', fname + ( isVideo ? ".m4v" : ".mp3" ));
-	anch.attr('title', isVideo ? "Watch M4V Video or Screen File" : "Listen to MP3 Audio File" );
+	anch.attr('download', fname + extension);
+	anch.attr('title', isVideo ? "Download Video or Screen File" : "Download to Audio File" );
 	anch.text( isVideo ? "Video File" : "Audio File" )
 	// add anchor to element
 	element.append(anch);
 	return element;
+}
+
+/**
+* A dirty method to extract the file extension from a href
+*/
+function findExtension(href){
+	log(href);
+	var split = href.split( /\./ );
+	log(split);
+	var n = split.length - 1;
+	log(split[n]);
+	return '.' + split[n];
 }
 
 /**
