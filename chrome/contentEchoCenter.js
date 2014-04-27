@@ -141,7 +141,7 @@ function makeLink(href, fname, isVideo){
 }
 
 /**
-* Checks if a url is valid
+* Checks if a url is valid by checking for success when requesting headers
 */ 
 function checkValid(URL){
 	var isValid;
