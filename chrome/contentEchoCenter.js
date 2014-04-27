@@ -29,6 +29,7 @@ function processLecture(data, resource, sendResponse){
 	var title = data.title;
 	var uuid  = data.uuid;
 	var date  = data.startTime;
+	var rmedia = data.richMedia;
 	// TODO Get [vod|pod]cast link
 	var vidLink = true;
 	var audLink = true;
@@ -48,23 +49,24 @@ function processLecture(data, resource, sendResponse){
 	// get directory name
 	var dir = generateDirLink(resource, uuid, tstamp);
 	if(dir == null){
-		error("Directory not found");
-		return;
+		error("Directory not found - rmedia still an option");
 	}
 	log("Directory: " + dir);
 	// set filename
 	var fname = title + tstamp.format(" [-] MMM Do");
 	// make URL to files
-	var afile = makeAudioLink(dir);
+	var afile = makeAudioLink(dir, rmedia);
 	if(afile == null){
 		error("No audio file found");
 		audLink = false;
 	}
-	var vfile = makeVideoLink(dir);
+	log(afile);
+	var vfile = makeVideoLink(dir, rmedia);
 	if(vfile == null){
 		error("No video file found");
 		vidLink = false;
 	}
+	log(vfile);
 	// generate DOM data
 	var heading = $("<div class=\"info-key\">Downloads</div>");
 	var aelement = makeLink(afile, fname, false);
@@ -114,17 +116,16 @@ function generateDirLink(resource, uuid, tstamp){
 /**
 *	generate direct link to audio file
 */
-function makeAudioLink(dir){
+function makeAudioLink(dir, rmedia){
 	var files = [
-		"/audio.mp3",
-		"/audio_1.aac"
+		dir + "/audio.mp3",
+		dir + "/audio_1.aac",
+		rmedia + "/mediacontent.mp3"
 	];
 	// Check if valid, different versions use different extension
 	for(var i in files){
-		var f = dir + files[i];
-		log("Checking "+ files[i]);
-		if(checkValid(f))
-			return f;
+		if(checkValid(files[i]))
+			return files[i];
 	}
 	return null;
 }
@@ -132,18 +133,16 @@ function makeAudioLink(dir){
 /**
 *	generate direct link to video file
 */
-function makeVideoLink(dir){
+function makeVideoLink(dir, rmedia){
 	var files = [
-		"/audio-vga.m4v",
-		"/audio-video.m4v",
-		"/display_1.h264"
+		dir + "/audio-vga.m4v",
+		dir + "/audio-video.m4v",
+		rmedia + "/mediacontent.m4v"
 	];
 	// Check if valid, different versions use different extension
 	for(var i in files){
-		var f = dir + files[i];
-		log("Checking "+ files[i]);
-		if(checkValid(f))
-			return f;
+		if(checkValid(files[i]))
+			return files[i];
 	}
 	return null;
 }
