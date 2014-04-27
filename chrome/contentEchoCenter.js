@@ -47,8 +47,6 @@ function processLecture(data, resource, sendResponse){
 	if(lectureMeta == null){ 
 		return;
 	}
-	// remove old links
-	lectureMeta.empty();
 	// get directory name
 	var dir = generateDirLink(resource, uuid, tstamp);
 	if(dir == null){
@@ -63,6 +61,8 @@ function processLecture(data, resource, sendResponse){
 	var heading = $("<div class=\"info-key\">Downloads</div>");
 	var aelement = makeLink(afile, fname, false);
 	var velement = makeLink(vfile, fname, true);
+	// remove old links
+	lectureMeta.empty();
 	// append heading
 	lectureMeta.append(heading);
 	// append links
