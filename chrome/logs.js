@@ -1,4 +1,4 @@
-DEBUG = false;
+DEBUG = true;
 
 /**
 * Log to the console
