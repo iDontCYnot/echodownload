@@ -30,8 +30,8 @@ function processLecture(data, resource, sendResponse){
 	var uuid  = data.uuid;
 	var date  = data.startTime;
 	// TODO Get [vod|pod]cast link
-	var vidLink = data.vodcast !== null;
-	var audLink = data.podcast !== null;
+	var vidLink = true;
+	var audLink = true;
 	// remove timezone from timestamp
 	var tstamp = moment(date.replace( /([+-]\d{2}:\d{2}|Z)/i, ''));
 	if(!tstamp.isValid()){
