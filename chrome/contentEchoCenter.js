@@ -98,6 +98,7 @@ function generateDirLink(resource, uuid, tstamp){
 	if(host == null){
 		return null;
 	}
+	log("Host: "+host);
 	// Media URL beginning
 	return host + tstamp.format("[echocontent/]YYWW[/]E[/]") + uuid;
 }
