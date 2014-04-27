@@ -177,12 +177,8 @@ function makeLink(href, fname, isVideo){
 * A dirty method to extract the file extension from a href
 */
 function findExtension(href){
-	log(href);
 	var split = href.split( /\./ );
-	log(split);
-	var n = split.length - 1;
-	log(split[n]);
-	return '.' + split[n];
+	return '.' + split[split.length - 1];
 }
 
 /**
