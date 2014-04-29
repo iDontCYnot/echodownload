@@ -38,12 +38,14 @@ function processLecture(data, resource, sendResponse, req_id){
 	var tstamp = moment(date.replace( /([+-]\d{2}:\d{2}|Z)/i, ''));
 	if(!tstamp.isValid()){
 		error("Invalid timestamp");
+		sendResponse(false);
 		return;
 	}
 	// grab meta data container to place download links
 	var lectureMeta = $(".info-meta").last();
 	if(lectureMeta == null){
 		error("Meta element not found");
+		sendResponse(false);
 		return;
 	}
 	// get directory name
@@ -70,6 +72,7 @@ function processLecture(data, resource, sendResponse, req_id){
 	// Check casts exist
 	if(!vidLink && !audLink){
 		error("No links in data");
+		sendResponse(false);
 		return;
 	}
 	// Now lets not do anything silly
