@@ -31,9 +31,6 @@ function processLecture(data, resource, sendResponse, req_id){
 	var uuid  = data.uuid;
 	var date  = data.startTime;
 	var rmedia = data.richMedia;
-	// hold whether file is present
-	var vidLink = true;
-	var audLink = true;
 	// remove timezone from timestamp
 	var tstamp = moment(date.replace( /([+-]\d{2}:\d{2}|Z)/i, ''));
 	if(!tstamp.isValid()){
@@ -60,17 +57,15 @@ function processLecture(data, resource, sendResponse, req_id){
 	var afile = makeAudioLink(dir, rmedia);
 	if(afile == null){
 		error("No audio file found");
-		audLink = false;
 	}
 	log(afile);
 	var vfile = makeVideoLink(dir, rmedia);
 	if(vfile == null){
 		error("No video file found");
-		vidLink = false;
 	}
 	log(vfile);
 	// Check casts exist
-	if(!vidLink && !audLink){
+	if(vfile == null && afile == null){
 		error("No links in data");
 		sendResponse(false);
 		return;
