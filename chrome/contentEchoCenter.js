@@ -1,5 +1,5 @@
 var REQ = 0;
-//recieve a message from the background.JS
+//recieve a message from the background.js
 chrome.extension.onMessage.addListener( processMessage );
 
 /**
@@ -72,33 +72,11 @@ function processLecture(data, resource, sendResponse, req_id){
 		error("No links in data");
 		return;
 	}
-	// generate DOM data
-	var heading = $("<div class=\"info-key\">Downloads</div>");
-	var aelement = makeLink(afile, fname, false);
-	var velement = makeLink(vfile, fname, true);
 	// Now lets not do anything silly
 	if(req_id >= REQ){
-		// remove old links
-		lectureMeta.empty();
-		// append heading
-		lectureMeta.append(heading);
-		// append links
-		if(vidLink && audLink){
-			// Both links
-			lectureMeta.append(aelement)
-			.append($("<br />"))
-			.append(velement);
-			log("Both links generated and available");
-		} else if (vidLink){
-			// Video link only
-			lectureMeta.append(velement);
-			log("only video link generated and available");
-		} else if (audLink){
-			// Audio link only
-			lectureMeta.append(aelement);
-			log("only audio link generated and available");
-		}
-		sendResponse();
+		// add links to DOM and send response to background
+		addToDOM(lectureMeta, afile, vfile, fname);
+		sendResponse(true);
 	}
 }
 
@@ -150,36 +128,6 @@ function firstAvailableURL(urls){
 			return urls[i];
 	}
 	return null;
-}
-
-/**
-* Create link element
-*/
-function makeLink(href, fname, isVideo){
-	if(href == null)
-		return null;
-	// extract extension
-	var extension = findExtension(href);
-	// element
-	var element = $("<div>");
-	element.addClass("info-value");
-	// anchor
-	var anch = $("<a>");
-	anch.attr('href', href);
-	anch.attr('download', fname + extension);
-	anch.attr('title', isVideo ? "Download Video or Screen File" : "Download to Audio File" );
-	anch.text( isVideo ? "Video File" : "Audio File" )
-	// add anchor to element
-	element.append(anch);
-	return element;
-}
-
-/**
-* A dirty method to extract the file extension from a href
-*/
-function findExtension(href){
-	var split = href.split( /\./ );
-	return '.' + split[split.length - 1];
 }
 
 /**
