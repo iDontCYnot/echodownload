@@ -17,4 +17,4 @@ all: chrome/*
 
 # Removed archives
 clean:
-	rm $(CR_ARCHIVE)*.zip
+	rm $(CR_ZIP)*
