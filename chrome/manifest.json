@@ -29,8 +29,8 @@
       "matches": ["*://*/ecp/html/*", "*://*/ess/html/*"],
       "js": [
         "logs.js",
-        "jquery-1.11.0.js",
-        "moment.min.js",
+        "lib/jquery-1.11.0.js",
+        "lib/moment.min.js",
         "dom.js",
         "contentEchoCenter.js"
       ],
