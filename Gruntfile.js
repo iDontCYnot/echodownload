@@ -67,18 +67,28 @@ module.exports = function(grunt) {
           {expand: true, cwd: 'bin/', src: ['**'], dest: '/'}
         ]
       }
+    },
+
+    //replace version number
+    sed: {
+      version: {
+        path: 'bin/manifest.json',
+        pattern: '%VERSION%',
+        replacement: '<%= pkg.version %>'
+      }
     }
 
   });
 
   // Load the plugin that provides the "uglify" task.
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-sed');
   grunt.loadNpmTasks('grunt-contrib-compress');
 
   // Default task(s).
-  grunt.registerTask('default', ['clean', 'copy', 'uglify:debug']);
-  grunt.registerTask('dist', ['clean', 'copy', 'uglify:dist', 'compress']);
+  grunt.registerTask('default', ['clean', 'copy', 'uglify:debug', 'sed']);
+  grunt.registerTask('dist', ['clean', 'copy', 'uglify:dist', 'sed', 'compress']);
 
 };
