@@ -3,6 +3,8 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
 
+    pkg: grunt.file.readJSON('package.json'),
+
     //cleanup
     clean: {
       dist: ['bin/', 'dist/']
@@ -10,15 +12,15 @@ module.exports = function(grunt) {
 
     //copy come files
     copy: {
-      main: {
+      files: {
         expand: true,
         cwd: 'src',
-        src: ['active.html', 'manifest.json'],
+        src: ['manifest.json', 'active.html'],
         dest: 'bin/',
         flatten: true,
         filter: 'isFile'
       },
-      icons: {
+      asset: {
         expand: true,
         cwd: 'src/asset',
         src: '**',
@@ -29,7 +31,6 @@ module.exports = function(grunt) {
     },
 
     //get ugly
-    pkg: grunt.file.readJSON('package.json'),
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
@@ -41,8 +42,8 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'bin/content.min.js': ['src/contentEchoCenter.js', 'src/dom.js', 'src/logs.js', 'lib/jquery-1.11.0.js', 'lib/moment.min.js'],
-          'bin/background.min.js': ['src/backgroundEchoCenter.js']
+          'bin/content.min.js': ['src/content.js', 'src/dom.js', 'src/logs.js', 'lib/jquery-1.11.0.js', 'lib/moment.min.js'],
+          'bin/background.min.js': ['src/background.js']
         }
       },
       debug: {
@@ -50,8 +51,8 @@ module.exports = function(grunt) {
           mangle: false
         },
         files: {
-          'bin/content.min.js': ['src/contentEchoCenter.js', 'src/dom.js', 'src/logs.js', 'lib/jquery-1.11.0.js', 'lib/moment.min.js'],
-          'bin/background.min.js': ['src/backgroundEchoCenter.js']
+          'bin/content.min.js': ['src/content.js', 'src/dom.js', 'src/logs.js', 'lib/jquery-1.11.0.js', 'lib/moment.min.js'],
+          'bin/background.min.js': ['src/background.js']
         }
       }
     },
