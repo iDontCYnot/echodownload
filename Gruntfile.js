@@ -42,7 +42,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'bin/content.min.js': ['src/content.js', 'src/dom.js', 'src/logs.js', 'lib/jquery-1.11.1.min.js', 'lib/moment.min.js'],
+          'bin/content.min.js': ['lib/jquery-1.11.1.min.js', 'lib/moment.min.js', 'src/logs.js', 'src/dom.js', 'src/content.js'],
           'bin/background.min.js': ['src/background.js']
         }
       },
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
           mangle: false
         },
         files: {
-          'bin/content.min.js': ['src/content.js', 'src/dom.js', 'src/logs.js', 'lib/jquery-1.11.1.min.js', 'lib/moment.min.js'],
+          'bin/content.min.js': ['lib/jquery-1.11.1.min.js', 'lib/moment.min.js', 'src/logs.js', 'src/dom.js', 'src/content.js'],
           'bin/background.min.js': ['src/background.js']
         }
       }
