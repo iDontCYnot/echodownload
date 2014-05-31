@@ -48,7 +48,8 @@ module.exports = function(grunt) {
       },
       debug: {
         options: {
-          mangle: false
+          mangle: false,
+          beautify: true
         },
         files: {
           'bin/content.min.js': ['lib/jquery-1.11.1.min.js', 'lib/moment.min.js', 'src/logs.js', 'src/dom.js', 'src/content.js'],
