@@ -11,6 +11,6 @@ A Chrome extension to allow direct downloading of echo360 lectures
 
 unpackaged files should be added to chrome (bin/)
 
-###
- Packaging for distrubution
+### Packaging for distrubution
+
 `grunt dist`
