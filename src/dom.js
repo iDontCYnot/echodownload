@@ -25,7 +25,7 @@ function makeLink(href, fname, isVideo){
 	// Check resource is available
 	if(href == null){
 		// make dead link
-		log((isVideo ? "Video " : "Audio ") + "link is dead");
+		console.log((isVideo ? "Video " : "Audio ") + "link is dead");
 		element.text(isVideo ? "Video Unavailable" : "Audio Unavailable");
 	} else {
 		// extract extension

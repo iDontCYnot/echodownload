@@ -34,39 +34,39 @@ function processLecture(data, resource, sendResponse, req_id){
 	// remove timezone from timestamp
 	var tstamp = moment(date.replace( /([+-]\d{2}:\d{2}|Z)/i, ''));
 	if(!tstamp.isValid()){
-		error("Invalid timestamp");
+		console.error("Invalid timestamp");
 		sendResponse(false);
 		return;
 	}
 	// grab meta data container to place download links
 	var lectureMeta = $(".info-meta").last();
 	if(lectureMeta == null){
-		error("Meta element not found");
+		console.error("Meta element not found");
 		sendResponse(false);
 		return;
 	}
 	// get directory name
 	var dir = generateDirLink(resource, uuid, tstamp);
 	if(dir == null){
-		error("Directory not found - rmedia still an option");
+		console.error("Directory not found - rmedia still an option");
 	}
-	log("Directory: " + dir);
+	console.log("Directory: " + dir);
 	// set filename
 	var fname = title + tstamp.format(" [-] MMM Do");
 	// make URL to files
 	var afile = makeAudioLink(dir, rmedia);
 	if(afile == null){
-		error("No audio file found");
+		console.error("No audio file found");
 	}
-	log(afile);
+	console.log(afile);
 	var vfile = makeVideoLink(dir, rmedia);
 	if(vfile == null){
-		error("No video file found");
+		console.error("No video file found");
 	}
-	log(vfile);
+	console.log(vfile);
 	// Check casts exist
 	if(vfile == null && afile == null){
-		error("No links in data");
+		console.error("No links in data");
 		sendResponse(false);
 		return;
 	}
@@ -87,7 +87,7 @@ function generateDirLink(resource, uuid, tstamp){
 	if(host == null){
 		return null;
 	}
-	log("Host: "+host);
+	console.log("Host: "+host);
 	// Media URL beginning
 	return host + tstamp.format("[echocontent/]YYWW[/]E[/]") + uuid;
 }
