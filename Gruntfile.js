@@ -30,6 +30,16 @@ module.exports = function(grunt) {
       }
     },
 
+    //do bower things
+    bower: {
+      install: {
+        options: {
+          cleanTargetDir: true
+        },
+        //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory
+      }
+    },
+
     //get ugly
     uglify: {
       options: {
@@ -42,7 +52,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'bin/content.min.js': ['lib/jquery-1.11.1.min.js', 'lib/moment.min.js', 'src/logs.js', 'src/dom.js', 'src/content.js'],
+          'bin/content.min.js': ['lib/jquery/jquery.js', 'lib/momentjs/moment.js', 'src/logs.js', 'src/dom.js', 'src/content.js'],
           'bin/background.min.js': ['src/background.js']
         }
       },
@@ -52,7 +62,7 @@ module.exports = function(grunt) {
           beautify: true
         },
         files: {
-          'bin/content.min.js': ['lib/jquery-1.11.1.min.js', 'lib/moment.min.js', 'src/logs.js', 'src/dom.js', 'src/content.js'],
+          'bin/content.min.js': ['lib/jquery/jquery.js', 'lib/momentjs/moment.js', 'src/logs.js', 'src/dom.js', 'src/content.js'],
           'bin/background.min.js': ['src/background.js']
         }
       }
@@ -84,12 +94,13 @@ module.exports = function(grunt) {
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-sed');
   grunt.loadNpmTasks('grunt-contrib-compress');
 
   // Default task(s).
-  grunt.registerTask('default', ['clean', 'copy', 'uglify:debug', 'sed']);
-  grunt.registerTask('dist', ['clean', 'copy', 'uglify:dist', 'sed', 'compress']);
+  grunt.registerTask('default', ['clean', 'bower', 'copy', 'uglify:debug', 'sed']);
+  grunt.registerTask('dist', ['clean', 'bower', 'copy', 'uglify:dist', 'sed', 'compress']);
 
 };

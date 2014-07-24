@@ -1,0 +1,19 @@
+{
+  "name": "echodownload",
+  "homepage": "https://github.com/iDontCYnot/echodownload",
+  "authors": [
+    "Joshua Kulesza <joshuakulesza@hotmail.com>"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "momentjs": "~2.7.0",
+    "jquery": "~2.1.1"
+  }
+}
