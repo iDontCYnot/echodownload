@@ -7,7 +7,7 @@ module.exports = function(grunt) {
 
     //cleanup
     clean: {
-      dist: ['bin/', 'dist/']
+      dist: ['bin/', 'dist/', 'lib/']
     },
 
     //copy come files
@@ -33,9 +33,6 @@ module.exports = function(grunt) {
     //do bower things
     bower: {
       install: {
-        options: {
-          cleanTargetDir: true
-        },
         //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory
       }
     },
