@@ -56,7 +56,8 @@ module.exports = function(grunt) {
       debug: {
         options: {
           mangle: false,
-          beautify: true
+          beautify: true,
+          sourceMap: true
         },
         files: "<%= uglify.dist.files %>"
       }
