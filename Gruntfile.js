@@ -49,7 +49,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'bin/content.min.js': ['lib/jquery/jquery.js', 'lib/momentjs/moment.js', 'src/logs.js', 'src/dom.js', 'src/content.js'],
+          'bin/content.min.js': ['lib/jquery/jquery.js', 'lib/momentjs/moment.js', 'src/dom.js', 'src/content.js'],
           'bin/background.min.js': ['src/background.js']
         }
       },
