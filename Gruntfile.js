@@ -7,7 +7,7 @@ module.exports = function(grunt) {
 
     //cleanup
     clean: {
-      dist: ['bin/', 'dist/', 'lib/']
+      dist: ['bin/', 'dist/']
     },
 
     //copy come files
@@ -32,6 +32,9 @@ module.exports = function(grunt) {
 
     //do bower things
     bower: {
+      options: {
+      	targetDir: "./bin/lib"
+      },
       install: {
         //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory
       }
@@ -49,7 +52,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'bin/content.min.js': ['lib/jquery/jquery.js', 'lib/momentjs/moment.js', 'src/dom.js', 'src/content.js'],
+          'bin/content.min.js': ['src/dom.js', 'src/content.js'],
           'bin/background.min.js': ['src/background.js']
         }
       },

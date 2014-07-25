@@ -28,6 +28,8 @@
     {
       "matches": ["*://*/ecp/html/*", "*://*/ess/html/*"],
       "js": [
+        "lib/jquery/jquery.js",
+        "lib/momentjs/moment.js",
         "content.min.js"
       ],
       "all_frames": true
