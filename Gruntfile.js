@@ -52,7 +52,14 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'bin/content.min.js': ['src/dom.js', 'src/content.js'],
+          'bin/content.min.js': [
+            'src/ResourceLink.js',
+            'src/HtmlLink.js',
+            'src/ResourceFiles.js',
+            'src/DomMutator.js',
+            'src/Lecture.js',
+            'src/content.js'
+          ],
           'bin/background.min.js': ['src/background.js']
         }
       },
@@ -60,7 +67,6 @@ module.exports = function(grunt) {
         options: {
           mangle: false,
           beautify: true,
-          sourceMap: true
         },
         files: "<%= uglify.dist.files %>"
       }
