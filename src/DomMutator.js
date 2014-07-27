@@ -28,10 +28,15 @@ DomMutator.prototype.hasError = function(){
 * Places the queues elements into the container after clearing the original contents
 **/
 DomMutator.prototype.commitChanges = function(){
+	// stahhpp!
+	if(this.hasError())
+		return;
+	// empty the container
 	this.container.empty();
 	// add the htmllinks
 	for(var i in this.objects){
 		if(i > 0){
+			// break between
 			this.container.append($("<br />"));
 		}
 		this.container.append(this.objects[i].toHTML());
