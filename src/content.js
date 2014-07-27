@@ -11,6 +11,7 @@ function processMessage(request, sender, sendResponse) {
 	// get json data for lecture
 	$.ajax({
         url: request.url,
+        async: false,
         success: function(data) {
         	// Check for latest request before processing
         	if(request_id >= REQ){
