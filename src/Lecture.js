@@ -4,6 +4,7 @@
 function Lecture(data, resource){
 	this.title = data.title;
 	this.uuid  = data.uuid;
+	this.thumbnails = data.thumbnails;
 	this.date  = moment(data.startTime.replace(/([+-]\d{2}:\d{2}|Z)/i, ''));
 	this.richMedia = data.richMedia;
 	this.resource = resource;
@@ -21,12 +22,24 @@ Lecture.prototype.hasError = function(){
 * returns the server directory containing lecture information and files
 **/
 Lecture.prototype.getDirectory = function(){
+	// Get dir from thumbnails
+	if(typeof this.thumbnails != 'undefined' && this.thumbnails[0] != null){
+		var matcher = new RegExp(".+" + this.uuid, "i");
+		var thumbDir = matcher.exec(this.thumbnails[0])[0];
+		console.log("Using thumbnails to grab directory");
+		console.log(thumbDir);
+		// did the thumbnails give us a directory?
+		if(thumbDir != null){
+			return thumbDir;
+		}
+	}
+	// If somehow using thumbnails fails, we can use the timestamp to make out own URL
 	// get host URL
 	var host = this.resource.split( /(ess\/|ecp\/)/ )[0];
 	if(host == null){
-		return null;
+		return null; // lost cause?
 	}
-	console.log("Host: " + host);
+	console.log("Generating Dir - Host: " + host);
 	// Media URL beginning
 	return host + this.date.format("[echocontent/]YYWW[/]E[/]") + this.uuid;
 }
