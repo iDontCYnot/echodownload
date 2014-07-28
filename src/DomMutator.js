@@ -33,6 +33,7 @@ DomMutator.prototype.commitChanges = function(){
 		return;
 	// empty the container
 	this.container.empty();
+	this.container.append($("<div class=\"info-key\">Downloads</div>"));
 	// add the htmllinks
 	for(var i in this.objects){
 		if(i > 0){
