@@ -23,7 +23,7 @@ HtmlLink.prototype.toHTML = function(){
 		// anchor
 		var anch = $("<a>")
 			.attr('href', this.resource.href)
-			.attr('download', this.filename + this.resource.extension)
+			.attr('download', this.filename + '.' + this.resource.extension)
 			.attr('title', this.resource.isVideo ? "Download Video or Screen File" : "Download to Audio File" )
 			.text( this.resource.isVideo ? "Video File" : "Audio File" );
 		// add anchor to element

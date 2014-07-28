@@ -43,7 +43,7 @@ Lecture.prototype.getLectureName = function(){
 **/
 Lecture.prototype.getHtmlLinkAudio = function(){
 	var res = ResourceFiles.getAudioResource(this);
-	return new HtmlLink(res, this.getLectureName);
+	return new HtmlLink(res, this.getLectureName());
 }
 
 /**
@@ -51,5 +51,5 @@ Lecture.prototype.getHtmlLinkAudio = function(){
 **/
 Lecture.prototype.getHtmlLinkVideo = function(){
 	var res = ResourceFiles.getVideoResource(this);
-	return new HtmlLink(res, this.getLectureName);
+	return new HtmlLink(res, this.getLectureName());
 }
