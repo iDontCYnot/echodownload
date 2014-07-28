@@ -15,7 +15,7 @@ HtmlLink.prototype.toHTML = function(){
 	var element = $("<div>");
 	element.addClass("info-value");
 	// Check resource is available
-	if(this.resource.href == null){
+	if(!this.resource.isValid()){
 		// make dead link
 		console.log((this.resource.isVideo ? "Video" : "Audio") + " link is dead");
 		element.text((this.resource.isVideo ? "Video" : "Audio") + " Unavailable");
