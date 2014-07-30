@@ -1,9 +1,8 @@
 REQUEST = 0
 
-chrome.extension.onMessage.addListener processMessage
-
 processMessage = (request, sender, callback) ->
-	request_id = ++REQUEST
+	REQUEST++
+	request_id = REQUEST
 	$.ajax
 	url: request.url
 	async: false
@@ -35,3 +34,5 @@ processLecture = (data, resource, callback, request_id) ->
 	if request_id >= REQUEST
 		mutator.commitChanges()
 		callback true
+
+chrome.extension.onMessage.addListener processMessage

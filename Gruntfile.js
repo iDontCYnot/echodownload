@@ -40,6 +40,22 @@ module.exports = function(grunt) {
       }
     },
 
+    coffee: {
+      compile: {
+        files: {
+          'bin/content.min.js': [
+            'src/ResourceLink.coffee',
+            'src/HtmlLink.coffee',
+            'src/ResourceFiles.coffee',
+            'src/DomMutator.coffee',
+            'src/Lecture.coffee',
+            'src/content.coffee'
+          ],
+          'bin/background.min.js': ['src/background.coffee']
+        }
+      }
+    },
+
     //get ugly
     uglify: {
       options: {
@@ -52,15 +68,8 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'bin/content.min.js': [
-            'src/ResourceLink.js',
-            'src/HtmlLink.js',
-            'src/ResourceFiles.js',
-            'src/DomMutator.js',
-            'src/Lecture.js',
-            'src/content.js'
-          ],
-          'bin/background.min.js': ['src/background.js']
+          'bin/content.min.js': ['bin/content.min.js'],
+          'bin/background.min.js': ['bin/background.min.js']
         }
       },
       debug: {
@@ -99,12 +108,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-bower-task');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-sed');
   grunt.loadNpmTasks('grunt-contrib-compress');
 
   // Default task(s).
-  grunt.registerTask('default', ['clean', 'bower', 'copy', 'uglify:debug', 'sed']);
-  grunt.registerTask('dist', ['clean', 'bower', 'copy', 'uglify:dist', 'sed', 'compress']);
+  grunt.registerTask('default', ['clean', 'bower', 'copy', 'coffee', 'uglify:debug', 'sed']);
+  grunt.registerTask('dist', ['clean', 'bower', 'copy', 'coffee', 'uglify:dist', 'sed', 'compress']);
 
 };
