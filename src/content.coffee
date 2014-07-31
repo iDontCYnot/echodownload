@@ -1,5 +1,3 @@
-chrome.extension.onMessage.addListener processMessage
-
 _REQUEST = 0
 
 processMessage = (request, sender, callback) ->
@@ -44,3 +42,4 @@ processLecture = (data, resource, request_id, callback) ->
 		mutator.commitChanges()
 		callback true
 
+chrome.extension.onMessage.addListener processMessage
