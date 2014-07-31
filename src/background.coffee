@@ -1,6 +1,7 @@
 captureRequest = (info) ->
 	request_url = info.url.toString()
 	console.log "searching"
+	# closure to ensure data retention
 	callback_fn = (_tabId) ->
 		(successful) ->
 			if successful
