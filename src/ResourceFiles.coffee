@@ -1,4 +1,4 @@
-class ResourceFiles
+class window.ResourceFiles
 
 	# function to generate possible audio files
 	@_possible_audio: (d, r) ->
@@ -26,7 +26,9 @@ class ResourceFiles
 
 	@_getResource: (lecture, isVideo) ->
 		dir = lecture.getDirectory()
+		console.log dir
 		rich = lecture.richMedia
+		console.log rich
 		# pick appropriate resources
 		getSources = if isVideo then @_possible_video else @_possible_audio
 		@_firstUsefulMedia getSources dir, rich

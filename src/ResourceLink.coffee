@@ -1,4 +1,4 @@
-class ResourceLink
+class window.ResourceLink
 
 	_validity_checks: 0
 	_last_validity_result: false
@@ -12,16 +12,17 @@ class ResourceLink
 				@_last_validity_result
 			else
 				isValid = false
+				console.log "Testing #{@href}"
 				$.ajax
-				type: 'HEAD'
-				url: @href
-				async: false
-				success: () ->
-					isValid = true
-				error: () ->
-					isValid = false
+					type: 'HEAD'
+					url: @href
+					async: false
+					success: () ->
+						isValid = true
+					error: () ->
+						isValid = false
+				console.log "result is #{isValid}"
 				@_last_validity_result = isValid
-				isValid
 
 		else
 			@_last_validity_result = false

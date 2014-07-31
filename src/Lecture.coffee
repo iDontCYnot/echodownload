@@ -1,10 +1,11 @@
-class Lecture
+class window.Lecture
 	constructor: (data, @resource) ->
 		@title = data.title
 		@uuid = data.uuid
 		@thumbnails = data.thumbnails
 		@date = moment data.startTime.replace /([+-]\d{2}:\d{2}|Z)/i , ''
 		@richMedia = data.richMedia
+		console.log "Rich Media #{@richMedia}"
 
 	hasError: ->
 		not @date.isValid()
@@ -24,6 +25,7 @@ class Lecture
 
 	getHtmlLinkAudio: ->
 		res = ResourceFiles.getAudioResource @
+		console.log res
 		new HtmlLink res, @getLectureName()
 
 	getHtmlLinkVideo: ->
