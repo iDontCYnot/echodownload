@@ -16,10 +16,11 @@ class Lecture
 			if thumbDir? then thumbDir
 		else
 			[host, ...] = @resource.split /(ess\/|ecp\/)/
-			host
+			if host?
+				"#{host}#{@date.format "[echocontent/]YYWW[/]E[/]"}#{@uuid}"
 
 	getLectureName: ->
-		"#{@title}#{@date.format "[echocontent/]YYWW[/]E[/]"}#{@uuid}"
+		"#{@title}#{@date.format(" [-] MMM Do")}"
 
 	getHtmlLinkAudio: ->
 		res = ResourceFiles.getAudioResource @
