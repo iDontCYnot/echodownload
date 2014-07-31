@@ -42,6 +42,9 @@ module.exports = function(grunt) {
 
     coffee: {
       compile: {
+        options: {
+          bare: true
+        },
         files: {
           'bin/content.min.js': [
             'src/ResourceLink.coffee',
