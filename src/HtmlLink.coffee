@@ -1,4 +1,5 @@
 class window.HtmlLink
+
 	constructor: (@resource, @filename) ->
 
 	toHtml: ->

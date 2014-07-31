@@ -1,4 +1,5 @@
 class window.Lecture
+
 	constructor: (data, @resource) ->
 		@title = data.title
 		@uuid = data.uuid
@@ -21,7 +22,7 @@ class window.Lecture
 				"#{host}#{@date.format "[echocontent/]YYWW[/]E[/]"}#{@uuid}"
 
 	getLectureName: ->
-		"#{@title}#{@date.format(" [-] MMM Do")}"
+		"#{@title}#{@date.format " [-] MMM Do"}"
 
 	getHtmlLinkAudio: ->
 		res = ResourceFiles.getAudioResource @
@@ -30,4 +31,5 @@ class window.Lecture
 
 	getHtmlLinkVideo: ->
 		res = ResourceFiles.getVideoResource @
+		console.log res
 		new HtmlLink res, @getLectureName()

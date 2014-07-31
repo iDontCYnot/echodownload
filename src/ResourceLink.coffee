@@ -12,7 +12,6 @@ class window.ResourceLink
 				@_last_validity_result
 			else
 				isValid = false
-				console.log "Testing #{@href}"
 				$.ajax
 					type: 'HEAD'
 					url: @href
@@ -26,4 +25,3 @@ class window.ResourceLink
 
 		else
 			@_last_validity_result = false
-			false

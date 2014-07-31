@@ -1,4 +1,5 @@
 class window.DomMutator
+
 	_errors: 0
 
 	constructor: (container) ->
@@ -8,7 +9,6 @@ class window.DomMutator
 	addLink: (htmllink) ->
 		@_errors++ if not htmllink.isValid()
 		@objects.push htmllink
-		console.log @objects
 
 	hasError: ->
 		@_errors > 1

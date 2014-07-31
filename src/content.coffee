@@ -1,8 +1,6 @@
 _REQUEST = 0
 
 processMessage = (request, sender, sendResult) ->
-	console.log sendResult
-	console.log "recieved a message!"
 	# closure to ensure data retention
 	success_fn = (_reqId, _reqUrl, _sendResult) ->
 		(data) -> if _reqId >= _REQUEST
@@ -15,7 +13,6 @@ processMessage = (request, sender, sendResult) ->
 
 
 processLecture = (data, resource, request_id, sendResult) ->
-	console.log sendResult
 	lecture = new Lecture data, resource
 	if lecture.hasError()
 		console.error "Lecture not valid"
@@ -42,7 +39,6 @@ processLecture = (data, resource, request_id, sendResult) ->
 	# don't make any changes if this request has expired
 	if request_id >= _REQUEST
 		mutator.commitChanges()
-		console.log sendResult
 		sendResult true
 
 chrome.extension.onMessage.addListener processMessage
