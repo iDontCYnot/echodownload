@@ -42,9 +42,6 @@ module.exports = function(grunt) {
 
     coffee: {
       compile: {
-        options: {
-          bare: true
-        },
         files: {
           'bin/content.min.js': [
             'src/ResourceLink.coffee',
@@ -75,13 +72,6 @@ module.exports = function(grunt) {
           'bin/background.min.js': ['bin/background.min.js']
         }
       },
-      debug: {
-        options: {
-          mangle: false,
-          beautify: true,
-        },
-        files: "<%= uglify.dist.files %>"
-      }
     },
 
     //zip it all up
@@ -117,7 +107,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-compress');
 
   // Default task(s).
-  grunt.registerTask('default', ['clean', 'bower', 'copy', 'coffee', 'uglify:debug', 'sed']);
-  grunt.registerTask('dist', ['clean', 'bower', 'copy', 'coffee', 'uglify:dist', 'sed', 'compress']);
+  grunt.registerTask('default', ['clean', 'bower', 'copy', 'coffee', 'sed']);
+  grunt.registerTask('dist', ['clean', 'bower', 'copy', 'coffee', 'uglify', 'sed', 'compress']);
 
 };
