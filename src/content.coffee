@@ -2,6 +2,9 @@ class window.EchoDownload
 
 	@_REQUEST = 0
 
+	@_isValidRequest: (requestId) ->
+		requestId >= @_REQUEST
+
 	@processMessage = (request, sender, callback) ->
 		# closure to ensure data retention
 		success_fn = (_reqId, _reqUrl, _callback) ->
