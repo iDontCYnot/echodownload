@@ -41,4 +41,4 @@ processLecture = (data, resource, request_id, sendResult) ->
 		mutator.commitChanges()
 		sendResult true
 
-chrome.extension.onMessage.addListener processMessage
+chrome.runtime.onMessage.addListener processMessage
