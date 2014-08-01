@@ -23,6 +23,7 @@ class window.EchoDownload
 		#ajax request
 		$.ajax
 			url: url
+			async: false
 			success: continuation_fn ++@_REQUEST, url, callback
 
 	@_processLecture: (jsonData, url, requestId, callback) ->
