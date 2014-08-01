@@ -27,13 +27,14 @@ class window.EchoDownload
 
 	@_processLecture: (jsonData, url, requestId, callback) ->
 		console.log "Processing Lecture"
+		#make a lecture and start working with it
 		lecture = new Lecture jsonData, url
 		if lecture.hasError()
 			console.error "Lecture not valid"
 			# Stop any expired callbacks
 			callback false if @_isValidRequest requestId
 			return
-
+		#grab meta element
 		lectureMeta = $(".info-meta").last()
 		if not lectureMeta?
 			console.error "Meta element not found"
