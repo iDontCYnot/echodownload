@@ -10,9 +10,11 @@ class window.EchoDl
 		requestId >= @_REQUEST
 
 	#inteprets background pages message
-	@processMessage: (request, sender, callback) =>
+	@processMessage: () ->
 		#pass required information to ED get+exec function
-		@_getMetadataAndExecute request.url, callback
+		if chrome?.runtime? #google chrome
+			(request, sender, callback) =>
+				@_getMetadataAndExecute request.url, callback
 
 	#loads lecture metadata and begins process of adding download links
 	@_getMetadataAndExecute: (url, callback) ->
@@ -60,4 +62,4 @@ class window.EchoDl
 			callback true
 
 #let chrome know what to do if the content scripts receive a message
-chrome.runtime.onMessage.addListener EchoDl.processMessage
+chrome?.runtime?.onMessage.addListener EchoDl.processMessage()
