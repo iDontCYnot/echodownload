@@ -1,18 +1,18 @@
 _REQUEST = 0
 
-processMessage = (request, sender, sendResult) ->
+processMessage = (request, sender, callback) ->
 	# closure to ensure data retention
-	success_fn = (_reqId, _reqUrl, _sendResult) ->
+	success_fn = (_reqId, _reqUrl, _callback) ->
 		(data) -> if _reqId >= _REQUEST
-				processLecture data.presentation, _reqUrl, _reqId, _sendResult
+				processLecture data.presentation, _reqUrl, _reqId, _callback
 	#ajax request
 	$.ajax
 		url: request.url
 		async: false
-		success: success_fn ++_REQUEST, request.url, sendResult
+		success: success_fn ++_REQUEST, request.url, callback
 
 
-processLecture = (data, resource, request_id, sendResult) ->
+processLecture = (data, resource, request_id, callback) ->
 	lecture = new Lecture data, resource
 	if lecture.hasError()
 		console.error "Lecture not valid"
@@ -24,7 +24,7 @@ processLecture = (data, resource, request_id, sendResult) ->
 	if not lectureMeta?
 		console.error "Meta element not found"
 		# Stop any expired callbacks
-		sendResult false if request_id >= _REQUEST
+		callback false if request_id >= _REQUEST
 		return
 
 	mutator = new DomMutator lectureMeta
@@ -33,12 +33,12 @@ processLecture = (data, resource, request_id, sendResult) ->
 	if mutator.hasError()
 		console.error "links not found"
 		# Stop any expired callbacks
-		sendResult false if request_id >= _REQUEST
+		callback false if request_id >= _REQUEST
 		return
 
 	# don't make any changes if this request has expired
 	if request_id >= _REQUEST
-		mutator.commitChanges()
-		sendResult true
+		do mutator.commitChanges
+		callback true
 
 chrome.runtime.onMessage.addListener processMessage
