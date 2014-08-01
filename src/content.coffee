@@ -10,7 +10,7 @@ class window.EchoDl
 		requestId >= @_REQUEST
 
 	#inteprets background pages message
-	@processMessage: () ->
+	@processMessage: ->
 		#pass required information to ED get+exec function
 		if chrome?.runtime? #google chrome
 			(request, sender, callback) =>
