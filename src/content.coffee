@@ -24,15 +24,15 @@ class window.EchoDl
 				@_getMetadataAndExecute request.url, request.tabId
 
 	#loads lecture metadata and begins process of adding download links
-	@_getMetadataAndExecute: (url, callback) ->
+	@_getMetadataAndExecute: (url, tabId) ->
 		# closure to ensure data retention
-		continuation_fn = (_reqId, _reqUrl, _callback) =>
+		continuation_fn = (_reqId, _reqUrl, _tabId) =>
 			(data) => if @_isValidRequest _reqId
-					@_processLecture data.presentation, _reqUrl, _reqId, _callback
+					@_processLecture data.presentation, _reqUrl, _reqId, _tabId
 		#ajax request
 		$.ajax
 			url: url
-			success: continuation_fn ++@_REQUEST, url, callback
+			success: continuation_fn ++@_REQUEST, url, tabId
 
 	@_processLecture: (jsonData, url, requestId, tabId) ->
 		console.log "Processing Lecture"
