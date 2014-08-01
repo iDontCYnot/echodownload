@@ -44,7 +44,7 @@ module.exports = function(grunt) {
       compile: {
         files: {
           'bin/content.min.js': [
-            'src/ResourceLink.coffee',
+            'src/MediaLink.coffee',
             'src/HtmlLink.coffee',
             'src/ResourceFiles.coffee',
             'src/DomMutator.coffee',

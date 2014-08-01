@@ -3,19 +3,19 @@ class window.ResourceFiles
 	# function to generate possible audio files
 	@_possible_audio: (d, r) ->
 		[
-			new ResourceLink "#{d}/audio.mp3", "mp3", false
-			new ResourceLink "#{d}/audio_1.aac", "aac", false
-			new ResourceLink "#{r}/mediacontent.mp3", "mp3", false
-			new ResourceLink null, null, false
+			new MediaLink "#{d}/audio.mp3", "mp3", false
+			new MediaLink "#{d}/audio_1.aac", "aac", false
+			new MediaLink "#{r}/mediacontent.mp3", "mp3", false
+			new MediaLink null, null, false
 		]
 
 	# function to generate possible video files
 	@_possible_video: (d, r) ->
 		[
-			new ResourceLink "#{d}/audio-vga.m4v", "m4v", true
-			new ResourceLink "#{d}/audio-video.m4v", "m4v", true
-			new ResourceLink "#{r}/mediacontent.m4v", "m4v", true
-			new ResourceLink null, null, true
+			new MediaLink "#{d}/audio-vga.m4v", "m4v", true
+			new MediaLink "#{d}/audio-video.m4v", "m4v", true
+			new MediaLink "#{r}/mediacontent.m4v", "m4v", true
+			new MediaLink null, null, true
 		]
 
 	@getAudioResource: (lecture) ->
