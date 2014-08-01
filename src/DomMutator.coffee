@@ -11,7 +11,7 @@ class window.DomMutator
 		@objects.push htmllink
 
 	hasError: ->
-		@_errors > 1
+		1 < @_errors or @_errors >= @objects.length
 
 	commitChanges: ->
 		if not @hasError()
