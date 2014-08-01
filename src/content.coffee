@@ -1,4 +1,4 @@
-class window.EchoDownload
+class window.EchoDl
 
 	#used to store most recently initiated request
 	#will be useful when aync activities come into play
@@ -60,4 +60,4 @@ class window.EchoDownload
 			callback true
 
 #let chrome know what to do if the content scripts receive a message
-chrome.runtime.onMessage.addListener EchoDownload.processMessage
+chrome.runtime.onMessage.addListener EchoDl.processMessage
