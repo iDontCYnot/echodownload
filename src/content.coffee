@@ -42,8 +42,10 @@ class window.EchoDownload
 			return
 
 		mutator = new DomMutator lectureMeta
-		mutator.addLink lecture.getHtmlLinkAudio()
-		mutator.addLink lecture.getHtmlLinkVideo()
+		# time has passed why waste bandwidth if invalidated
+		mutator.addLink lecture.getHtmlLinkAudio() if @_isValidRequest requestId
+		mutator.addLink lecture.getHtmlLinkVideo() if @_isValidRequest requestId
+
 		if mutator.hasError()
 			console.error "links not found"
 			# Stop any expired callbacks
