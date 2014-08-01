@@ -1,11 +1,12 @@
 captureRequest = (info) ->
-	request_url = info.url.toString()
+	url = info.url.toString()
+	console.log "Capturing #{url}"
 	#search = request_url?.search "loadDetailsSuccess"\
-	if request_url.search("loadDetailsSuccess") isnt -1
-		[url_string, ...] = request_url.match /.+details.json/i
-		if url_string?
+	if url.search("loadDetailsSuccess") isnt -1
+		[url, ...] = url.match /.+details.json/i
+		if url?
 			console.log "Alright! lets go! #{info.tabId}"
-			chrome.tabs.sendMessage info.tabId, url: url_string, (successful) ->
+			chrome.tabs.sendMessage info.tabId, url: url, (successful) =>
 				if successful
 					console.log "Showing action on tab:#{info.tabId}"
 					chrome.pageAction.show info.tabId
