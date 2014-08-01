@@ -1,7 +1,7 @@
 captureRequest = (info) ->
 	request_url = info.url.toString()
 	#search = request_url?.search "loadDetailsSuccess"\
-	if request_url.search("loadDetailsSuccess")  isnt -1
+	if request_url.search("loadDetailsSuccess") isnt -1
 		[url_string, ...] = request_url.match /.+details.json/i
 		if url_string?
 			console.log "Alright! lets go! #{info.tabId}"
