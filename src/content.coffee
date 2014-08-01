@@ -9,12 +9,19 @@ class window.EchoDl
 		console.log "Checking #{requestId} against #{@_REQUEST}"
 		requestId >= @_REQUEST
 
+	@_sendMessage: (tabId, result) ->
+		info =
+			tabId: tabId
+			result: result
+		#send internal message in chrome
+		chrome?.runtime?.sendMessage info
+
 	#inteprets background pages message
-	@processMessage: ->
+	@onMessage: ->
 		#pass required information to ED get+exec function
 		if chrome?.runtime? #google chrome
 			(request, sender, callback) =>
-				@_getMetadataAndExecute request.url, callback
+				@_getMetadataAndExecute request.url, request.tabId
 
 	#loads lecture metadata and begins process of adding download links
 	@_getMetadataAndExecute: (url, callback) ->
@@ -25,24 +32,23 @@ class window.EchoDl
 		#ajax request
 		$.ajax
 			url: url
-			async: false
 			success: continuation_fn ++@_REQUEST, url, callback
 
-	@_processLecture: (jsonData, url, requestId, callback) ->
+	@_processLecture: (jsonData, url, requestId, tabId) ->
 		console.log "Processing Lecture"
 		#make a lecture and start working with it
 		lecture = new Lecture jsonData, url
 		if lecture.hasError()
 			console.error "Lecture not valid"
 			# Stop any expired callbacks
-			callback false if @_isValidRequest requestId
+			@_sendMessage tabId, false if @_isValidRequest requestId
 			return
 		#grab meta element
 		lectureMeta = $(".info-meta").last()
 		if not lectureMeta?
 			console.error "Meta element not found"
 			# Stop any expired callbacks
-			callback false if @_isValidRequest requestId
+			@_sendMessage tabId, false if @_isValidRequest requestId
 			return
 
 		mutator = new DomMutator lectureMeta
@@ -53,13 +59,13 @@ class window.EchoDl
 		if mutator.hasError()
 			console.error "links not found"
 			# Stop any expired callbacks
-			callback false if @_isValidRequest requestId
+			@_sendMessage tabId, false if @_isValidRequest requestId
 			return
 
 		# don't make any changes if this request has expired
 		if @_isValidRequest requestId
 			do mutator.commitChanges
-			callback true
+			@_sendMessage tabId, true
 
 #let chrome know what to do if the content scripts receive a message
-chrome?.runtime?.onMessage.addListener EchoDl.processMessage()
+chrome?.runtime?.onMessage.addListener EchoDl.onMessage()
