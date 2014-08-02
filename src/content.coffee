@@ -14,7 +14,8 @@ class window.EchoDl
 			tabId: tabId
 			result: result
 		#send internal message in chrome
-		chrome?.runtime?.sendMessage info
+		chrome?.runtime?.sendMessage info #google chrome
+		safari?.self?.tab?.dispatchMessage "message", info #apple safari
 
 	#inteprets background pages message
 	@onMessage: ->
@@ -22,6 +23,9 @@ class window.EchoDl
 		if chrome?.runtime? #google chrome
 			(request, sender, callback) =>
 				@_getMetadataAndExecute request.url, request.tabId
+		if safari?.self? #apple safari
+			(msgEvent) =>
+				@_getMetadataAndExecute msgEvent.message.url, msgEvent.message.tabId
 
 	#loads lecture metadata and begins process of adding download links
 	@_getMetadataAndExecute: (url, tabId) ->
@@ -69,3 +73,4 @@ class window.EchoDl
 
 #let chrome know what to do if the content scripts receive a message
 chrome?.runtime?.onMessage.addListener EchoDl.onMessage()
+safari?.self?.addEventListener "message", EchoDl.onMessage(), false

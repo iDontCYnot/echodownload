@@ -8,6 +8,8 @@ class EchoDlService
 			url: url
 		#send internal message in chrome
 		chrome?.tabs?.sendMessage tabId, info
+		#send internal message in safari
+		safari?.self?.tabs[tabId]?.page?.dispatchMessage "message", info
 
 	@_showAction: (tabId) ->
 		console.log "Showing action on tab:#{tabId}"
@@ -42,7 +44,12 @@ class EchoDlService
 		if chrome?.runtime? #google chrome
 			(request, sender, callback) =>
 				@_onResult request.tabId, request.result
+		if safari?.application? #apple safari
+			(msgEvent) =>
+				@_onResult msgEvent.message.tabId, msgEvent.message.result
 
 #tell chrome what to do with the requests it hears
 chrome?.runtime?.onMessage.addListener EchoDlService.onMessage()
 chrome?.webRequest?.onCompleted.addListener EchoDlService.onRequest(), urls: ["*://*/ecp/api/*", "*://*/ess/client/api/*"]
+#tell safari what to do with the requests it hears
+safari?.application?.addEventListener "message", EchoDlService.onMessage(), false
