@@ -44,14 +44,20 @@ module.exports = function(grunt) {
       compile: {
         files: {
           'bin/content.min.js': [
+            'src/BrowserComms.coffee',
             'src/MediaLink.coffee',
             'src/HtmlLink.coffee',
             'src/ResourceFiles.coffee',
             'src/DomMutator.coffee',
             'src/Lecture.coffee',
+            'src/EchoDl.coffee',
             'src/content.coffee'
           ],
-          'bin/background.min.js': ['src/background.coffee']
+          'bin/background.min.js': [
+            'src/BrowserComms.coffee',
+            'src/EchoDlService.coffee',
+            'src/background.coffee'
+          ]
         }
       }
     },
