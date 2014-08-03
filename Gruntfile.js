@@ -43,8 +43,10 @@ module.exports = function(grunt) {
     coffee: {
       compile: {
         files: {
+          'bin/browserComms.min.js': [
+            'src/BrowserComms.coffee'
+          ],
           'bin/content.min.js': [
-            'src/BrowserComms.coffee',
             'src/MediaLink.coffee',
             'src/HtmlLink.coffee',
             'src/ResourceFiles.coffee',
@@ -54,7 +56,6 @@ module.exports = function(grunt) {
             'src/content.coffee'
           ],
           'bin/background.min.js': [
-            'src/BrowserComms.coffee',
             'src/EchoDlService.coffee',
             'src/background.coffee'
           ]
@@ -74,6 +75,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
+          'bin/browserComms.min.js' : ['bin/browserComms.min.js'],
           'bin/content.min.js': ['bin/content.min.js'],
           'bin/background.min.js': ['bin/background.min.js']
         }

@@ -30,12 +30,16 @@
       "js": [
         "lib/jquery/jquery.js",
         "lib/momentjs/moment.js",
+        "browserComms.min.js",
         "content.min.js"
       ],
       "all_frames": true
     }
   ],
   "background": {
-      "scripts": ["background.min.js"]
+      "scripts": [
+        "browserComms.min.js",
+        "background.min.js"
+      ]
   }
 }
