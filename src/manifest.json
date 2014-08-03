@@ -22,7 +22,7 @@
       "38": "/asset/icon38.png"
     },
     "default_title": "EchoDownload is active",
-    "default_popup": "active.html"
+    "default_popup": "asset/active.html"
   },
   "content_scripts": [
     {
