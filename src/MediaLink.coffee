@@ -19,6 +19,6 @@ class window.MediaLink
 						@_last_validity_result = true
 					error: () =>
 						@_last_validity_result = false
-
+				@_last_validity_result
 		else
 			@_last_validity_result = false
