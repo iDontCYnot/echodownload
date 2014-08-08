@@ -22,16 +22,13 @@ class window.DomMutator
 				@container.append obj.toHtml()
 
 	setErrorBanner: ->
-		banner = $("<div>").css
-			'position' : "fixed"
-			'background-color' : "darkred"
-			'color' : "white"
-			'top' : "0px"
-			'width' : "100%"
-			'font-family' : "sans-serif"
-			'padding' : "18px"
-			'border-bottom' : "1px solid lightcoral"
-			'box-shadow' : "0px 0px 20px rgba(0,0,0,0.6)"
-			'z-index' : 100
-		banner.text "EchoDownload did a derp"
+		banner = $("<div>")
+		banner.addClass "ed_banner"
+		banner.addClass "error"
+		banner.text "<Placeholder Error>"
+		#close button
+		close = $("<div>")
+		close.addClass "close"
+		close.text "Dismiss"
+		banner.append close
 		$('html').append banner
