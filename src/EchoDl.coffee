@@ -51,6 +51,7 @@ class window.EchoDl
 
 		if mutator.hasError()
 			console.error "links not found"
+			do mutator.setErrorBanner
 			# Stop any expired callbacks
 			@_sendMessage tabId, false if @_isValidRequest requestId
 			return
