@@ -15,7 +15,6 @@ class window.DomMutator
 
 	commitChanges: ->
 		if not @hasError()
-			#get rid of any old error banners
 			@container.empty()
 			@container.append $("<div class=\"info-key\">Downloads</div>")
 			for obj, i in @objects
