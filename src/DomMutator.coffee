@@ -22,13 +22,5 @@ class window.DomMutator
 				@container.append obj.toHtml()
 
 	setErrorBanner: ->
-		banner = $("<div>")
-		banner.addClass "ed_banner"
-		banner.addClass "error"
-		banner.text "<Placeholder Error>"
-		#close button
-		close = $("<div>")
-		close.addClass "close"
-		close.text "Dismiss"
-		banner.append close
-		$('html').append banner
+
+		#$('html').append heads_up

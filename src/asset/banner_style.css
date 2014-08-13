@@ -1,34 +1,44 @@
-.ed_banner {
-	position : fixed;
-	color : white;
-	top : 0px;
-	width : 100%;
-	font-family : sans-serif;
-	padding : 18px;
-	border-bottom' : 2px solid rgba(255, 255, 255, 0.25);
-	box-shadow : 0px 0px 20px rgba(0,0,0,0.6);
-	z-index : 100;
-}
-
-.ed_banner.warning {
-	background-color: darkorange;
-}
-
-.ed_banner.error {
-	background-color : darkred;
-}
-
-.ed_banner > .close {
-	padding-left: 20px;
-	padding-right: 20px;
-	display: inline;
-	position: absolute;
-	padding : 18px;
+.ed-flash-container {
 	top: 0px;
-	right: 0px;
-	border-left: 2px solid rgba(255, 255, 255, 0.25);
+	position: fixed;
+	width: 100%;
+	z-index: 100;
 }
 
-.ed_banner > .close:hover {
-	background-color: rgba(255, 255, 255, 0.25);
+.ed-banner {
+	padding: 10px;
+	font-family : sans-serif;
+}
+
+.ed-banner > .ed-content {
+	background: lightgrey;
+	border-radius: 2px;
+	padding: 15px;
+	color: rgba(0,0,0,0.4);
+	box-shadow: 0px 1px;
+	border: 1px	solid rgba(0,0,0,0.1)
+}
+
+.ed-banner > .ed-content.warning {
+	background-color: rgb(255, 230, 160);
+}
+
+.ed-banner > .ed-content.error {
+	background-color: rgb(255, 160, 160);
+}
+
+.ed-banner > .ed-content > strong {
+	color: rgba(0,0,0,0.6);
+}
+
+.ed-banner > .ed-content > .ed-close {
+	cursor: pointer;
+	display: inline-block;
+	right: 25pt;
+	position: absolute;
+	color: rgba(0,0,0,0.4);
+}
+
+.ed-banner > .ed-content > .ed-close:hover {
+	color: black;
 }
