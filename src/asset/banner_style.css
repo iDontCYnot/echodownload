@@ -6,37 +6,39 @@
 }
 
 .ed-banner {
-	padding: 10px;
+	padding: 20px;
 	font-family : sans-serif;
 }
 
 .ed-banner > .ed-content {
 	background: lightgrey;
-	border-radius: 2px;
+	border-radius: 3px;
 	padding: 15px;
-	color: rgba(0,0,0,0.4);
-	box-shadow: 0px 1px;
-	border: 1px	solid rgba(0,0,0,0.1)
+	padding-right: 35px;
+	color: rgba(0,0,0,0.5);
+	box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+	border: 1px	solid rgba(0,0,0,0.2);
 }
 
 .ed-banner > .ed-content.warning {
-	background-color: rgb(255, 230, 160);
+	background-color: rgb(180, 240, 255)
 }
 
 .ed-banner > .ed-content.error {
-	background-color: rgb(255, 160, 160);
+	background-color: rgb(255, 180, 180);
 }
 
 .ed-banner > .ed-content > strong {
 	color: rgba(0,0,0,0.6);
+	padding-right: 10px;
 }
 
 .ed-banner > .ed-content > .ed-close {
 	cursor: pointer;
 	display: inline-block;
-	right: 25pt;
+	right: 30pt;
 	position: absolute;
-	color: rgba(0,0,0,0.4);
+	color: rgba(0,0,0,0.5);
 }
 
 .ed-banner > .ed-content > .ed-close:hover {

@@ -1,18 +1,26 @@
 <html>
 <head>
 	<link rel="stylesheet" href="src/asset/banner_style.css">
+	<style>
+
+		body {
+			margin: 0px;
+		}
+
+	</style>
 </head>
-	<div class="ed-flash-container">
-		<div class="ed-banner">
+<div class="ed-flash-container">
+	<div class="ed-banner">
 		<div class="ed-content">
 			<strong>%LEVEL%</strong>
 			%MESSAGE%
 			<span class="ed-close">&times;</span>
 		</div>
 	</div>
+</div>
 <body>
 	</div>
-	<div class="ed-banner">
+	<div class="ed-banner" style="visibility: hidden">
 		<div class="ed-content">
 			<strong>%LEVEL%</strong>
 			%MESSAGE%
@@ -21,16 +29,16 @@
 	</div>
 	<div class="ed-banner">
 		<div class="ed-content warning">
-			<strong>UUGH!</strong>
-			EchoDownload couldn't find all the files it needed. Sorry :(
+			<strong>FYI</strong>
+			EchoDownload couldn't access all the files it needed. However, at least one file is available.
 			<span class="ed-close">&times;</span>
 		</div>
 	</div>
 	<div class="ed-banner">
 		<div class="ed-content error">
-			<strong>BUGGER!</strong>
-			EchoDownload was unable to make this lecture downloadable. My deepest apologies  :'(
-			<span class="ed-close">&times;</span>
+			<strong>Error</strong>
+				EchoDownload was unable to access any of the files needed for this lecture.
+				<span class="ed-close">&times;</span>
 		</div>
 	</div>
 </body>

@@ -49,9 +49,11 @@ class window.EchoDl
 		mutator.addLink lecture.getHtmlLinkAudio() if @_isValidRequest requestId
 		mutator.addLink lecture.getHtmlLinkVideo() if @_isValidRequest requestId
 
+		#set warning or error banner
+		do mutator.setErrorBanner if @_isValidRequest requestId
+
 		if mutator.hasError()
 			console.error "links not found"
-			do mutator.setErrorBanner
 			# Stop any expired callbacks
 			@_sendMessage tabId, false if @_isValidRequest requestId
 			return
