@@ -34,11 +34,11 @@ class window.DomMutator
 			content = $('<div>')
 			content.addClass "ed-content"
 			content.addClass if fatalError then "error" else "warning"
-			label = $('<strong>').text if fatalError then "Error" else "FYI"
+			label = $('<strong>').text if fatalError then "Error:" else "Notice:"
 			if fatalError
 				content.text "EchoDownload was unable to access any of the files needed for this lecture."
 			else
-				content.text "EchoDownload couldn't access all the files it needed, however at least one file is available."
+				content.text "EchoDownload couldn't access all the files it needed. However, at least one file is available."
 			content.prepend label
 			#close button
 			close = $('<span>')
