@@ -6,12 +6,12 @@
 }
 
 .ed-banner {
-	padding: 20px;
+	padding: 20px 20px 0px 20px;
 	font-family : sans-serif;
 }
 
 .ed-banner > .ed-content {
-	background: lightgrey;
+	background: white;
 	border-radius: 3px;
 	padding: 15px;
 	padding-right: 35px;
