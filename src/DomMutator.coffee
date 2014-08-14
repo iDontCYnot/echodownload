@@ -22,6 +22,7 @@ class window.DomMutator
 				@container.append obj.toHtml()
 
 	setErrorBanner: ->
+		do @_dismissBanners
 		if @_errors > 0
 			fatalError = 1 < @_errors or @_errors >= @objects.length
 			banner = $('<div>')
@@ -44,7 +45,6 @@ class window.DomMutator
 			close.addClass "ed-close"
 			close.html '&times;'
 			close.click @_dismissBanners
-
 			#add it all together
 			banner.append cell
 			cell.append content
