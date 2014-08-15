@@ -26,7 +26,7 @@
   "content_scripts": [
     {
       "matches": ["*://*/ecp/html/*", "*://*/ess/html/*"],
-      "css": ["asset/banner_style.css"],
+      "css": ["asset/banner_styles.css"],
       "js": [
         "lib/jquery/jquery.js",
         "lib/momentjs/moment.js",

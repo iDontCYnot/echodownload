@@ -4,3 +4,4 @@ bin
 lib
 dist
 bower_components
+.sass-cache

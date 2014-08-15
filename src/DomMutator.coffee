@@ -33,12 +33,9 @@ class window.DomMutator
 		do @_dismissBanners
 		if @_errors > 0
 			fatalError = 1 < @_errors or @_errors >= @objects.length
-			banner = $('<div>').addClass "ed-flash-container"
-			#banner cell
-			cell = $('<div>').addClass "ed-banner"
+			banner = $('<div>').addClass "ed-banner"
 			#banner content
-			content = $('<div>').addClass "ed-content"
-			content.addClass if fatalError then "error" else "warning"
+			content = $('<div>').addClass if fatalError then "ed-error" else "ed-warning"
 			label = $('<strong>').text if fatalError then "Error:" else "Notice:"
 			if fatalError
 				content.text "EchoDownload was unable to access any of the files needed for this lecture."
@@ -50,11 +47,10 @@ class window.DomMutator
 			close.html '&times;'
 			close.click @_dismissBanners
 			#add it all together
-			banner.append cell
-			cell.append content
+			banner.append content
 			content.append close
 			$('html').append banner
 
 	#removes all banners from DOM
 	_dismissBanners: ->
-		do $('.ed-flash-container').remove
+		do $('.ed-banner').remove

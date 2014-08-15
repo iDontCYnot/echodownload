@@ -63,6 +63,17 @@ module.exports = function(grunt) {
       }
     },
 
+    sass: {
+      options: {
+        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+      },
+      dist: {
+        files: {
+          'bin/asset/banner_styles.css': 'src/banner_styles.sass'
+        }
+      }
+    },
+
     //get ugly
     uglify: {
       options: {
@@ -111,11 +122,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-sed');
   grunt.loadNpmTasks('grunt-contrib-compress');
 
   // Default task(s).
-  grunt.registerTask('default', ['clean', 'bower', 'copy', 'coffee', 'sed']);
-  grunt.registerTask('dist', ['clean', 'bower', 'copy', 'coffee', 'uglify', 'sed', 'compress']);
+  grunt.registerTask('default', ['clean', 'bower', 'copy', 'coffee', 'sass', 'sed']);
+  grunt.registerTask('dist', ['clean', 'bower', 'copy', 'coffee', 'sass', 'uglify', 'sed', 'compress']);
 
 };
