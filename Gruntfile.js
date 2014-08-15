@@ -69,7 +69,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'bin/asset/banner_styles.css': 'src/banner_styles.sass'
+          'bin/asset/banner_styles.css': 'src/banner_styles.scss'
         }
       }
     },
