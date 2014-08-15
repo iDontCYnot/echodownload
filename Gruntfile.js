@@ -74,25 +74,6 @@ module.exports = function(grunt) {
       }
     },
 
-    //get ugly
-    uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
-      },
-      dist: {
-        options: {
-          compress: {
-            drop_console: true
-          }
-        },
-        files: {
-          'bin/browserComms.min.js' : ['bin/browserComms.min.js'],
-          'bin/content.min.js': ['bin/content.min.js'],
-          'bin/background.min.js': ['bin/background.min.js']
-        }
-      },
-    },
-
     //zip it all up
     compress: {
       main: {
@@ -121,13 +102,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-contrib-coffee');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-sed');
   grunt.loadNpmTasks('grunt-contrib-compress');
 
   // Default task(s).
   grunt.registerTask('default', ['clean', 'bower', 'copy', 'coffee', 'sass', 'sed']);
-  grunt.registerTask('dist', ['clean', 'bower', 'copy', 'coffee', 'sass', 'uglify', 'sed', 'compress']);
+  grunt.registerTask('dist', ['default', 'compress']);
 
 };
