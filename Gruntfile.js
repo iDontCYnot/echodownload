@@ -74,6 +74,12 @@ module.exports = function(grunt) {
       }
     },
 
+    removelogging: {
+      dist: {
+        src: "bin/*.js" // Each file will be overwritten with the output!
+      }
+    },
+
     //zip it all up
     compress: {
       main: {
@@ -103,11 +109,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks("grunt-remove-logging");
   grunt.loadNpmTasks('grunt-sed');
   grunt.loadNpmTasks('grunt-contrib-compress');
 
   // Default task(s).
   grunt.registerTask('default', ['clean', 'bower', 'copy', 'coffee', 'sass', 'sed']);
-  grunt.registerTask('dist', ['default', 'compress']);
+  grunt.registerTask('dist', ['default', 'removelogging', 'compress']);
 
 };
