@@ -15,7 +15,7 @@ module.exports = function(grunt) {
       files: {
         expand: true,
         cwd: 'src',
-        src: ['manifest.json', 'active.html'],
+        src: ['manifest.json'],
         dest: 'bin/',
         flatten: true,
         filter: 'isFile'
