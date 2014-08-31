@@ -10,26 +10,26 @@
       "*://*/ess/client/api/*"
   ],
   "icons": {
-    "16" : "/asset/icon16.png",
-    "32" : "/asset/icon32.png",
-    "48" : "/asset/icon48.png",
-    "128" : "/asset/icon128.png",
-    "256" : "/asset/icon256.png"
+    "16" : "icon16.png",
+    "32" : "icon32.png",
+    "48" : "icon48.png",
+    "128" : "icon128.png",
+    "256" : "icon256.png"
   },
   "page_action": {
     "default_icon": {
-      "19": "/asset/icon19.png",
-      "38": "/asset/icon38.png"
+      "19": "icon19.png",
+      "38": "icon38.png"
     },
     "default_title": "EchoDownload is active"
   },
   "content_scripts": [
     {
       "matches": ["*://*/ecp/html/*", "*://*/ess/html/*"],
-      "css": ["asset/banner_styles.css"],
+      "css": ["banner_styles.css"],
       "js": [
-        "lib/jquery/jquery.js",
-        "lib/momentjs/moment.js",
+        "lib/jquery.js",
+        "lib/moment.js",
         "browserComms.min.js",
         "content.min.js"
       ],

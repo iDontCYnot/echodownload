@@ -7,24 +7,36 @@ module.exports = function(grunt) {
 
     //cleanup
     clean: {
-      dist: ['bin/', 'dist/']
+      dist: ['bin/', 'dist/', 'lib/']
     },
 
     //copy come files
     copy: {
-      files: {
+      chrome: {
         expand: true,
-        cwd: 'src',
-        src: ['manifest.json'],
-        dest: 'bin/',
+        src: ['src/chrome/**', 'bin/shared/**'],
+        dest: 'bin/chrome',
         flatten: true,
         filter: 'isFile'
       },
-      asset: {
+      chrome_lib: {
         expand: true,
-        cwd: 'src/asset',
-        src: '**',
-        dest: 'bin/asset/',
+        src: ['lib/**'],
+        dest: 'bin/chrome/lib',
+        flatten: true,
+        filter: 'isFile'
+      },
+      safari: {
+        expand: true,
+        src: ['src/safari/**', 'bin/shared/**'],
+        dest: 'bin/safari.safariextension',
+        flatten: true,
+        filter: 'isFile'
+      },
+      safari_lib: {
+        expand: true,
+        src: ['lib/**'],
+        dest: 'bin/safari.safariextension/lib',
         flatten: true,
         filter: 'isFile'
       }
@@ -33,7 +45,7 @@ module.exports = function(grunt) {
     //do bower things
     bower: {
       options: {
-      	targetDir: "./bin/lib"
+      	targetDir: "./lib"
       },
       install: {
         //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory
@@ -43,10 +55,10 @@ module.exports = function(grunt) {
     coffee: {
       compile: {
         files: {
-          'bin/browserComms.min.js': [
+          'bin/shared/browserComms.min.js': [
             'src/BrowserComms.coffee'
           ],
-          'bin/content.min.js': [
+          'bin/shared/content.min.js': [
             'src/MediaLink.coffee',
             'src/HtmlLink.coffee',
             'src/ResourceFiles.coffee',
@@ -55,7 +67,7 @@ module.exports = function(grunt) {
             'src/EchoDl.coffee',
             'src/content.coffee'
           ],
-          'bin/background.min.js': [
+          'bin/shared/background.min.js': [
             'src/EchoDlService.coffee',
             'src/background.coffee'
           ]
@@ -69,33 +81,38 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'bin/asset/banner_styles.css': 'src/banner_styles.scss'
+          'bin/shared/banner_styles.css': 'src/banner_styles.scss'
         }
       }
     },
 
     removelogging: {
       dist: {
-        src: "bin/*.js" // Each file will be overwritten with the output!
+        src: "bin/shared/*.js" // Each file will be overwritten with the output!
       }
     },
 
     //zip it all up
     compress: {
-      main: {
+      chrome: {
         options: {
-          archive: 'dist/<%= pkg.name %>.zip'
+          archive: 'dist/<%= pkg.name %>_chrome.zip'
         },
         files: [
-          { expand: true, src : '**/*', cwd : 'bin/' }
+          { expand: true, src : '**/*', cwd : 'bin/chrome' }
         ]
       }
     },
 
     //replace version number
     sed: {
-      version: {
-        path: 'bin/manifest.json',
+      chrome: {
+        path: 'bin/chrome/manifest.json',
+        pattern: '%VERSION%',
+        replacement: '<%= pkg.version %>'
+      },
+      safari: {
+        path: 'bin/safari.safariextension/info.plist',
         pattern: '%VERSION%',
         replacement: '<%= pkg.version %>'
       }
@@ -114,7 +131,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-compress');
 
   // Default task(s).
-  grunt.registerTask('default', ['clean', 'bower', 'copy', 'coffee', 'sass', 'sed']);
-  grunt.registerTask('dist', ['default', 'removelogging', 'compress']);
+  grunt.registerTask('default', ['clean', 'bower', 'coffee', 'sass', 'copy', 'sed'])
+  grunt.registerTask('dist', ['clean', 'bower', 'coffee', 'removelogging', 'sass', 'copy', 'sed', 'compress']);
 
 };
