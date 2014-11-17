@@ -25,7 +25,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*/ecp/html/*", "*://*/ess/html/*"],
+      "matches": ["*://*/ecp/html/*", "*://*/ess/html/*", "*://*/ess/echocenter/*"],
       "css": ["asset/banner_styles.css"],
       "js": [
         "lib/jquery/jquery.js",
