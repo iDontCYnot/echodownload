@@ -1,6 +1,6 @@
 {
   "name": "echodownload",
-  "version": "5.2.1",
+  "version": "5.3",
   "description": "A Chrome extension to allow direct downloading of echo360 lectures",
   "repository": {
     "type": "git",
