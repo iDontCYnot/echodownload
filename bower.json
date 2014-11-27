@@ -13,7 +13,7 @@
     "tests"
   ],
   "dependencies": {
-    "momentjs": "~2.8.1",
+    "momentjs": "~2.8.4",
     "jquery": "~2.1.1"
   }
 }
