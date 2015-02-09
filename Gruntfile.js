@@ -27,6 +27,13 @@ module.exports = function(grunt) {
         dest: 'bin/asset/',
         flatten: true,
         filter: 'isFile'
+      },
+      locales: {
+        expand: true,
+        cwd: 'src/_locales',
+        src: '**',
+        dest: 'bin/_locales/',
+        filter: 'isFile'
       }
     },
 

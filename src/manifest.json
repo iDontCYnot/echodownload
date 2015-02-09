@@ -4,6 +4,7 @@
   "minimum_chrome_version": "20",
   "manifest_version": 2,
   "description": "Download all Echo360 recordings",
+  "default_locale": "en",
   "permissions": [
       "webRequest",
       "*://*/ecp/api/*",
