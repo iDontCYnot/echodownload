@@ -23,7 +23,7 @@ class window.DomMutator
 	commitChanges: ->
 		if not @hasError()
 			@container.empty()
-			@container.append $("<div class=\"info-key\">#{chrome.i18n.getMessage "downloadContainer"}</div>")
+			@container.append $("<div class=\"info-key\">#{BrowserComms.getLocaleString "downloadContainer"}</div>")
 			for obj, i in @objects
 				@container.append $("<br />") if i > 0
 				@container.append obj.toHtml()
@@ -36,11 +36,11 @@ class window.DomMutator
 			banner = $('<div>').addClass "ed-banner"
 			#banner content
 			content = $('<div>').addClass if fatalError then "ed-error" else "ed-warning"
-			label = $('<strong>').text if fatalError then chrome.i18n.getMessage "errorTag" else chrome.i18n.getMessage "noticeTag"
+			label = $('<strong>').text if fatalError then BrowserComms.getLocaleString "errorTag" else BrowserComms.getLocaleString "noticeTag"
 			if fatalError
-				content.text chrome.i18n.getMessage "errorContent"
+				content.text BrowserComms.getLocaleString "errorContent"
 			else
-				content.text chrome.i18n.getMessage "noticeContent"
+				content.text BrowserComms.getLocaleString "noticeContent"
 			content.prepend label
 			#close button
 			close = $('<span>').addClass "ed-close"
