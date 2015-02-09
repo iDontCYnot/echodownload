@@ -1,0 +1,46 @@
+{
+  "videoTitle": {
+    "description" : "",
+    "message": "Download Video or Screen File"
+  },
+  "audioTitle": {
+    "description" : "",
+    "message": "Download Audio File"
+  },
+  "videoAnchor": {
+    "description" : "",
+    "message": "Video File"
+  },
+  "audioAnchor": {
+    "description" : "",
+    "message": "Audio File"
+  },
+  "videoUnavailable": {
+    "description" : "",
+    "message": "Video Unavailable"
+  },
+  "audioUnavailable": {
+    "description" : "",
+    "message": "Audio Unavailable"
+  },
+  "downloadContainer": {
+    "description" : "",
+    "message": "Downloads"
+  },
+  "errorTag": {
+    "description" : "",
+    "message": "Error:"
+  },
+  "noticeTag": {
+    "description" : "",
+    "message": "Notice:"
+  },
+  "errorContent": {
+    "description" : "",
+    "message": "EchoDownload was unable to access any of the files needed for this lecture."
+  },
+  "noticeContent": {
+    "description" : "",
+    "message": "EchoDownload couldn't access all the files it needed. However, at least one file is available."
+  }
+}

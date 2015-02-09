@@ -41,3 +41,6 @@ class window.BrowserComms
 		else #hide action
 			console.log "Hiding action on tab:#{tabId}"
 			chrome?.pageAction?.hide tabId #chrome
+
+	@getLocaleString: (messageName) ->
+		chrome?.i18n?.getMessage messageName

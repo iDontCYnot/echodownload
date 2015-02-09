@@ -10,11 +10,11 @@ class window.HtmlLink
 			anchor = $("<a>").attr
 				'href': @resource.href
 				'download': "#{@filename}.#{@resource.extension}"
-				'title': if @resource.isVideo then "Download Video or Screen File" else "Download Audio File"
-			anchor.text if @resource.isVideo then "Video File" else "Audio File"
+				'title': if @resource.isVideo then BrowserComms.getLocaleString "videoTitle" else BrowserComms.getLocaleString "audioTitle"
+			anchor.text if @resource.isVideo then BrowserComms.getLocaleString "videoAnchor" else BrowserComms.getLocaleString "audioAnchor"
 			element.append anchor
 		else
-			element.text if @resource.isVideo then "Video Unavailable" else "Audio Unavailable"
+			element.text if @resource.isVideo then BrowserComms.getLocaleString "videoUnavailable" else BrowserComms.getLocaleString "audioUnavailable"
 
 	isValid: ->
 		@resource.isValid()
