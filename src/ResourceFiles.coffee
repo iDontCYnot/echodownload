@@ -33,5 +33,6 @@ class window.ResourceFiles
 
 	@_firstUsefulMedia: (possible) ->
 		for media in possible
+			console.log "checking #{media.href}"
 			if media.isValid() then return media
 		possible[possible.length - 1]
