@@ -23,7 +23,7 @@ class window.DomMutator
 	commitChanges: ->
 		if not @hasError()
 			@container.empty()
-			@container.append $("<div class=\"info-key\">Downloads</div>")
+			@container.append $("<div class=\"info-key\">#{chrome.i18n.getMessage "downloadContainer"}</div>")
 			for obj, i in @objects
 				@container.append $("<br />") if i > 0
 				@container.append obj.toHtml()
@@ -36,11 +36,11 @@ class window.DomMutator
 			banner = $('<div>').addClass "ed-banner"
 			#banner content
 			content = $('<div>').addClass if fatalError then "ed-error" else "ed-warning"
-			label = $('<strong>').text if fatalError then "Error:" else "Notice:"
+			label = $('<strong>').text if fatalError then chrome.i18n.getMessage "errorTag" else chrome.i18n.getMessage "noticeTag"
 			if fatalError
-				content.text "EchoDownload was unable to access any of the files needed for this lecture."
+				content.text chrome.i18n.getMessage "errorContent"
 			else
-				content.text "EchoDownload couldn't access all the files it needed. However, at least one file is available."
+				content.text chrome.i18n.getMessage "noticeContent"
 			content.prepend label
 			#close button
 			close = $('<span>').addClass "ed-close"
