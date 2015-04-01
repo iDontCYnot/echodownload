@@ -71,9 +71,6 @@ module.exports = function(grunt) {
     },
 
     sass: {
-      options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
-      },
       dist: {
         files: {
           'bin/asset/banner_styles.css': 'src/banner_styles.scss'
